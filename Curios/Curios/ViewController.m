@@ -16,12 +16,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self logJson];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)logJson {
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"json" ofType:@""];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSString *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    NSLog(@"json = %@", json);
 }
 
 @end
