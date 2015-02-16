@@ -1,5 +1,4 @@
-[
-  {
+{
   "identifier":"AE3FDR",
   "descr":"page",
   "containers":[
@@ -20,39 +19,6 @@
       },
       {
         "identifier":"EEEEEE",
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"Image",
-            "src":"path",
-            "filter":"LOMO"
-          }
-      }
-  ]
-  },
-  {
-  "identifier":"AE3FDR",
-  "descr":"container",
-  "containers":[
-      {
-        "identifier":"EEEEEE",
-        "frame":{"x":10,"y":10,"width":10,"height":10},
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"String",
-            "src":"contentString",
-            "font":"HeiTi",
-            "size":15
-          }
-        
-      },
-      {
-        "identifier":"EEEEEE",
         "frame":{"x":10,"y":10,"width":10,"height":10},
         "borderWidth":2,
         "editable":"true",
@@ -65,5 +31,4 @@
           }
       }
   ]
-  }
-]
+}

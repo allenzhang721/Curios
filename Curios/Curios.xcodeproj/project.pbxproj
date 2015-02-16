@@ -10,13 +10,13 @@
 		2BCDC28BBCDD09EAE7F5B486 /* libPods-Curios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FCD396CE8829FEEFDB45EB /* libPods-Curios.a */; };
 		2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */; };
 		2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F111A8B480A0013FB88 /* CUPageModel.m */; };
-		2C215F151A8B48280013FB88 /* CUContainerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F141A8B48280013FB88 /* CUContainerModel.m */; };
+		2C215F151A8B48280013FB88 /* CUConModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F141A8B48280013FB88 /* CUConModel.m */; };
 		2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F171A8B483B0013FB88 /* CUComponentModel.m */; };
-		2C215F1B1A8B4A7C0013FB88 /* CUComponentImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F1A1A8B4A7C0013FB88 /* CUComponentImageModel.m */; };
-		2C215F1E1A8B4A950013FB88 /* CUComponentTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F1D1A8B4A950013FB88 /* CUComponentTextModel.m */; };
 		2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */; };
 		2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816E1A918EEB00AEE5FF /* CUPageViewModel.m */; };
 		2C8A81731A91924100AEE5FF /* json in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81721A91924100AEE5FF /* json */; };
+		2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81741A91EBD100AEE5FF /* conponentJson */; };
+		2C8A81771A91F72500AEE5FF /* pageJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81761A91F72500AEE5FF /* pageJson */; };
 		2CD9C61A1A89EC8800BCD69B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6191A89EC8800BCD69B /* main.m */; };
 		2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61C1A89EC8800BCD69B /* AppDelegate.m */; };
 		2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61F1A89EC8800BCD69B /* ViewController.m */; };
@@ -42,19 +42,17 @@
 		2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUBaseModel.m; sourceTree = "<group>"; };
 		2C215F101A8B480A0013FB88 /* CUPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageModel.h; sourceTree = "<group>"; };
 		2C215F111A8B480A0013FB88 /* CUPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPageModel.m; sourceTree = "<group>"; };
-		2C215F131A8B48280013FB88 /* CUContainerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUContainerModel.h; sourceTree = "<group>"; };
-		2C215F141A8B48280013FB88 /* CUContainerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUContainerModel.m; sourceTree = "<group>"; };
+		2C215F131A8B48280013FB88 /* CUConModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConModel.h; sourceTree = "<group>"; };
+		2C215F141A8B48280013FB88 /* CUConModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConModel.m; sourceTree = "<group>"; };
 		2C215F161A8B483B0013FB88 /* CUComponentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUComponentModel.h; sourceTree = "<group>"; };
 		2C215F171A8B483B0013FB88 /* CUComponentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUComponentModel.m; sourceTree = "<group>"; };
-		2C215F191A8B4A7C0013FB88 /* CUComponentImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUComponentImageModel.h; sourceTree = "<group>"; };
-		2C215F1A1A8B4A7C0013FB88 /* CUComponentImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUComponentImageModel.m; sourceTree = "<group>"; };
-		2C215F1C1A8B4A950013FB88 /* CUComponentTextModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUComponentTextModel.h; sourceTree = "<group>"; };
-		2C215F1D1A8B4A950013FB88 /* CUComponentTextModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUComponentTextModel.m; sourceTree = "<group>"; };
 		2C8A816A1A918ED100AEE5FF /* CUConViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConViewModel.h; sourceTree = "<group>"; };
 		2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConViewModel.m; sourceTree = "<group>"; };
 		2C8A816D1A918EEB00AEE5FF /* CUPageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageViewModel.h; sourceTree = "<group>"; };
 		2C8A816E1A918EEB00AEE5FF /* CUPageViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPageViewModel.m; sourceTree = "<group>"; };
 		2C8A81721A91924100AEE5FF /* json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json; sourceTree = "<group>"; };
+		2C8A81741A91EBD100AEE5FF /* conponentJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conponentJson; sourceTree = "<group>"; };
+		2C8A81761A91F72500AEE5FF /* pageJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pageJson; sourceTree = "<group>"; };
 		2CD9C6141A89EC8800BCD69B /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD9C6181A89EC8800BCD69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CD9C6191A89EC8800BCD69B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,14 +105,10 @@
 				2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */,
 				2C215F101A8B480A0013FB88 /* CUPageModel.h */,
 				2C215F111A8B480A0013FB88 /* CUPageModel.m */,
-				2C215F131A8B48280013FB88 /* CUContainerModel.h */,
-				2C215F141A8B48280013FB88 /* CUContainerModel.m */,
+				2C215F131A8B48280013FB88 /* CUConModel.h */,
+				2C215F141A8B48280013FB88 /* CUConModel.m */,
 				2C215F161A8B483B0013FB88 /* CUComponentModel.h */,
 				2C215F171A8B483B0013FB88 /* CUComponentModel.m */,
-				2C215F191A8B4A7C0013FB88 /* CUComponentImageModel.h */,
-				2C215F1A1A8B4A7C0013FB88 /* CUComponentImageModel.m */,
-				2C215F1C1A8B4A950013FB88 /* CUComponentTextModel.h */,
-				2C215F1D1A8B4A950013FB88 /* CUComponentTextModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -178,6 +172,8 @@
 		2CD9C6171A89EC8800BCD69B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2C8A81761A91F72500AEE5FF /* pageJson */,
+				2C8A81741A91EBD100AEE5FF /* conponentJson */,
 				2C8A81721A91924100AEE5FF /* json */,
 				2CD9C6181A89EC8800BCD69B /* Info.plist */,
 				2CD9C6191A89EC8800BCD69B /* main.m */,
@@ -293,7 +289,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD9C6231A89EC8800BCD69B /* Main.storyboard in Resources */,
+				2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */,
 				2CD9C6281A89EC8800BCD69B /* LaunchScreen.xib in Resources */,
+				2C8A81771A91F72500AEE5FF /* pageJson in Resources */,
 				2C8A81731A91924100AEE5FF /* json in Resources */,
 				2CD9C6251A89EC8800BCD69B /* Images.xcassets in Resources */,
 			);
@@ -346,9 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C215F1E1A8B4A950013FB88 /* CUComponentTextModel.m in Sources */,
 				2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */,
-				2C215F1B1A8B4A7C0013FB88 /* CUComponentImageModel.m in Sources */,
 				2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */,
 				2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
@@ -356,7 +352,7 @@
 				2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */,
 				2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */,
 				2CD9C61A1A89EC8800BCD69B /* main.m in Sources */,
-				2C215F151A8B48280013FB88 /* CUContainerModel.m in Sources */,
+				2C215F151A8B48280013FB88 /* CUConModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +508,7 @@
 				);
 				INFOPLIST_FILE = CuriosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Curios.app/Curios";
 			};
@@ -527,6 +524,7 @@
 				);
 				INFOPLIST_FILE = CuriosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Curios.app/Curios";
 			};

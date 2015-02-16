@@ -22,9 +22,9 @@
 
 - (void)logJson {
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"json" ofType:@""];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"pageJson" ofType:@""];
     NSData *data = [NSData dataWithContentsOfFile:path];
-    NSString *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
     NSLog(@"json = %@", json);
 }

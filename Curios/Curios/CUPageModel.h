@@ -8,8 +8,12 @@
 
 #import "CUBaseModel.h"
 
+
 @interface CUPageModel : CUBaseModel
 
+
+@property(nonatomic, copy)NSString *identifier;
+@property(nonatomic, copy)NSString *descr;
 @property(nonatomic, strong)NSMutableArray *containers;
 
 @end
