@@ -14,10 +14,10 @@
 
 @property(nonatomic, copy)NSString *identifier;
 @property(nonatomic, copy)NSString *descr;
-@property(nonatomic, assign)NSDictionary *frame;
+@property(nonatomic, assign)NSDictionary *frame;    // x, y, width, height
 @property(nonatomic, assign)NSInteger borderWidth;
 @property(nonatomic, assign)BOOL editable;
-@property(nonatomic, copy)NSDictionary *dashMode;
+@property(nonatomic, copy)NSDictionary *dashMode;   // dash, gap
 @property(nonatomic, copy)NSString *animation;
 @property(nonatomic, strong)CUComponentModel *component;
 

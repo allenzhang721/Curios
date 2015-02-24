@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import <Mantle/Mantle.h>
+#import "CUPageModel.h"
+
 
 @interface ViewController ()
 
@@ -15,18 +18,20 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self logJson];
+  [super viewDidLoad];
+  
+  [self logJson];
 }
 
 - (void)logJson {
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"pageJson" ofType:@""];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    NSLog(@"json = %@", json);
+  
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"json" ofType:@""];
+  NSData *data = [NSData dataWithContentsOfFile:path];
+  NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+  NSArray *pageModels = [MTLJSONAdapter modelsOfClass:[CUPageModel class] fromJSONArray:json error:nil];
+  NSArray *jsonArray = [MTLJSONAdapter JSONArrayFromModels:pageModels];
+  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:nil];
+  NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
 }
 
 @end

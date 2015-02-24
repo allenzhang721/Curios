@@ -1,69 +1,103 @@
 [
   {
-  "identifier":"AE3FDR",
-  "descr":"page",
-  "containers":[
+    "identifier": "AE3FDR", 
+    "descr": "page", 
+    "containers": [
       {
-        "identifier":"EEEEEE",
-        "descr":"container",
-        "frame":{"x":10,"y":10,"width":10,"height":10},
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"String",
-            "src":"contentString",
-            "font":"HeiTi",
-            "size":15
+        "identifier": "EEEEEE", 
+        "descr": "container", 
+        "frame": {
+          "x": 10, 
+          "y": 10, 
+          "width": 10, 
+          "height": 10
+        }, 
+        "borderWidth": 2, 
+        "editable": true,
+        "dashMode": {
+          "dash": 10, 
+          "gap": 10
+        }, 
+        "animation": "MoveIn", 
+        "component": {
+          "String": {
+            "type": "String", 
+            "src": "contentString", 
+            "font": "HeiTi", 
+            "size": 15
           }
-      },
+        }
+      }, 
       {
-        "identifier":"EEEEEE",
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"Image",
-            "src":"path",
-            "filter":"LOMO"
+        "identifier": "EEEEEE", 
+        "borderWidth": 2, 
+        "editable": true,
+        "dashMode": {
+          "dash": 10, 
+          "gap": 10
+        }, 
+        "animation": "MoveIn", 
+        "component": {
+          "Image": {
+            "type": "Image", 
+            "src": "path", 
+            "filter": "LOMO"
           }
+        }
       }
-  ]
-  },
+    ]
+  }, 
   {
-  "identifier":"AE3FDR",
-  "descr":"container",
-  "containers":[
+    "identifier": "AE3FDR", 
+    "descr": "container", 
+    "containers": [
       {
-        "identifier":"EEEEEE",
-        "frame":{"x":10,"y":10,"width":10,"height":10},
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"String",
-            "src":"contentString",
-            "font":"HeiTi",
-            "size":15
+        "identifier": "EEEEEE", 
+        "frame": {
+          "x": 10, 
+          "y": 10, 
+          "width": 10, 
+          "height": 10
+        }, 
+        "borderWidth": 2, 
+        "editable": true,
+        "dashMode": {
+          "dash": 10, 
+          "gap": 10
+        }, 
+        "animation": "MoveIn", 
+        "component": {
+          "String": {
+            "type": "String", 
+            "src": "contentString", 
+            "font": "HeiTi", 
+            "size": 15
           }
-        
-      },
+        }
+      }, 
       {
-        "identifier":"EEEEEE",
-        "frame":{"x":10,"y":10,"width":10,"height":10},
-        "borderWidth":2,
-        "editable":"true",
-        "dashMode":{"dash":10,"gap":10},
-        "animation":"MoveIn",
-        "component":{
-            "type":"Image",
-            "src":"path",
-            "filter":"LOMO"
+        "identifier": "EEEEEE", 
+        "frame": {
+          "x": 10, 
+          "y": 10, 
+          "width": 10, 
+          "height": 10
+        }, 
+        "borderWidth": 2, 
+        "editable": true,
+        "dashMode": {
+          "dash": 10, 
+          "gap": 10
+        }, 
+        "animation": "MoveIn", 
+        "component": {
+          "Image": {
+            "type": "Image", 
+            "src": "path", 
+            "filter": "LOMO"
           }
+        }
       }
-  ]
+    ]
   }
 ]
