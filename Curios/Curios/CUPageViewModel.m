@@ -8,6 +8,21 @@
 
 #import "CUPageViewModel.h"
 
+@interface CUPageViewModel ()
+
+@property(nonatomic, strong)CUPageModel *model;
+
+@end
+
 @implementation CUPageViewModel
+
+- (instancetype)initWithModel:(CUPageModel *)model {
+    
+    if (self = [super init]) {
+        
+        self.model = model;
+    }
+    return self;
+}
 
 @end

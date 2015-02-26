@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <Mantle/Mantle.h>
 #import "CUPageModel.h"
+#import "CUConModel.h"
 
 
 @interface ViewController ()
@@ -32,6 +33,22 @@
   NSArray *jsonArray = [MTLJSONAdapter JSONArrayFromModels:pageModels];
   NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:nil];
   NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+  
+  for (CUPageModel *model in pageModels) {
+    
+    for (CUConModel *conModel in model.containers) {
+      NSDictionary *frame = conModel.frame;
+      CGFloat x = [frame[@"x"] floatValue];
+      CGFloat y = [frame[@"y"] floatValue];
+      CGFloat width = [frame[@"width"] floatValue];
+      CGFloat height = [frame[@"height"] floatValue];
+      UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+      aView.backgroundColor = [UIColor redColor];
+      [self.view addSubview:aView];
+    }
+    
+  }
+    
 }
 
 @end

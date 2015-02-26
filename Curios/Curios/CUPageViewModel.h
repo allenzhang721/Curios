@@ -7,7 +7,10 @@
 //
 
 #import "RVMViewModel.h"
+#import "CUPageModel.h"
 
 @interface CUPageViewModel : RVMViewModel
+
+- (instancetype)initWithModel:(CUPageModel *)model;
 
 @end
