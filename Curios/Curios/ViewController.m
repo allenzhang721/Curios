@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self logJson];
+//  [self logJson];
 }
 
 - (void)logJson {
