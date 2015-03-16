@@ -31,18 +31,18 @@
   
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-  for (UICollectionViewLayoutAttributes *attribute in attributes) {
-    
-    NSIndexPath *indexPath = attribute.indexPath;
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = cell.contentView.subviews[0];
-    view.userInteractionEnabled = YES;
-    [UIView animateWithDuration:0.3 animations:^{
-      
-      view.transform = CGAffineTransformIdentity;
-    }];
-    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
-  }
+//  for (UICollectionViewLayoutAttributes *attribute in attributes) {
+//    
+//    NSIndexPath *indexPath = attribute.indexPath;
+//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//    UIView *view = cell.contentView.subviews[0];
+//    view.userInteractionEnabled = YES;
+//    [UIView animateWithDuration:0.3 animations:^{
+//      
+//      view.transform = CGAffineTransformIdentity;
+//    }];
+//    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
+//  }
   
   return attributes;
   

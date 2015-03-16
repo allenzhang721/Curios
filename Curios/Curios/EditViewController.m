@@ -39,13 +39,21 @@
   
   isNormalLayout = [_editCollectionView.collectionViewLayout isKindOfClass:CUNormalLayout.class];
   
-  [_editCollectionView setCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout animated:YES];
+//  [_editCollectionView setCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout animated:YES];
+  CGRect frame = _editCollectionView.frame;
+  frame.size.width *= 2;
+  _editCollectionView.frame = frame;
+  _editCollectionView.transform = cgaff;
+
+  
   [UIView animateWithDuration:0.3 animations:^{
-    
-    _editCollectionView.transform = CGAffineTransformMakeTranslation(0, (isNormalLayout ? 1 : 0) * 427 * (1- 0.3));
+//    _editCollectionView.transform = CGAffineTransformMakeTranslation(0, (isNormalLayout ? 1 : 0) * 427 * (1- 0.3));
   } completion:^(BOOL finished) {
 //    isNormalLayout = !isNormalLayout;
 //    [_editCollectionView reloadData];
+//    CGRect frame = _editCollectionView.frame;
+//    frame.size.width = self.view.bounds.size.width;
+//    _editCollectionView.frame = frame;
   }];
 }
 
@@ -53,7 +61,7 @@
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return 120;
+  return 20;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
