@@ -34,19 +34,19 @@
   
   NSArray *attributes = [super layoutAttributesForElementsInRect:CGRectMake(rect.origin.x - 1000, rect.origin.y, rect.size.width + 1000, rect.size.height)];
   
-//  for (UICollectionViewLayoutAttributes *attribute in attributes) {
-//    
-//    NSIndexPath *indexPath = attribute.indexPath;
-//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//    UIView *view = cell.contentView.subviews[0];
-//    view.userInteractionEnabled = NO;
-//    [UIView animateWithDuration:0.3 animations:^{
-//      
-//      view.transform = CGAffineTransformMakeScale(0.4, 0.4);
-//      view.transform = CGAffineTransformTranslate(view.transform, -250, -300);
-//    }];
-//    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
-//  }
+  for (UICollectionViewLayoutAttributes *attribute in attributes) {
+    
+    NSIndexPath *indexPath = attribute.indexPath;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *view = cell.contentView.subviews[0];
+    view.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+      
+      view.transform = CGAffineTransformMakeScale(0.4, 0.4);
+      view.transform = CGAffineTransformTranslate(view.transform, -250, -300);
+    }];
+    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
+  }
   
   return attributes;
   
