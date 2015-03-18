@@ -8,19 +8,53 @@
 
 #import "CUNormalLayout.h"
 
-@implementation CUNormalLayout
+static CGFloat const _largeLeadingGap = 30;
+static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
 
-- (void)prepareLayout {
+@implementation CUNormalLayout {
   
-  CGSize rect = self.collectionView.bounds.size;
-  CGSize itemSize = CGSizeMake(270, 427);
-  self.itemSize = itemSize;
-  CGFloat gapVerical = (rect.height - itemSize.height) / 2.0;
-  CGFloat gapHorizontal = (rect.width - itemSize.width) / 2.0;
+  CGSize _collectionViewSize;
+  CGFloat _scale;
   
-  self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-  self.sectionInset = UIEdgeInsetsMake(gapVerical, gapHorizontal, gapVerical, gapHorizontal);
 }
+
+- (instancetype)init
+{
+  self = [super init];
+  if (self) {
+    
+    
+    _collectionViewSize = CGSizeMake(320,548);;
+    CGFloat itemWidth = _collectionViewSize.width - _largeLeadingGap * 2;
+    CGFloat itemHeight = itemWidth / _aspectRatio;
+    
+    CGFloat insetVer = (_collectionViewSize.height - itemHeight) / 2;
+    CGFloat insetHor = _largeLeadingGap;
+    
+    self.itemSize = CGSizeMake(itemWidth, itemHeight);
+    self.sectionInset = UIEdgeInsetsMake(insetVer, insetHor, insetVer, insetHor);
+    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+  }
+  return self;
+}
+
+//- (void)prepareLayout {
+//  
+//  /* >>>>>  Mr.chen, 03.18.2015, _Layout Caculator_
+//   
+//   itemSize
+//   .width = collWidth - _largeLeadingGap * 2;
+//   .height = .width / _aspectRatio
+//   
+//   inset
+//   .top = .bottom = (collHeight - .height) / 2;
+//   .left = .right = 30
+//   
+//   <<<<< */
+//
+//  
+//  NSLog(@"%s", __FUNCTION__);
+//}
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
   
@@ -31,18 +65,18 @@
   
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-  for (UICollectionViewLayoutAttributes *attribute in attributes) {
-    
-    NSIndexPath *indexPath = attribute.indexPath;
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = cell.contentView.subviews[0];
-    view.userInteractionEnabled = YES;
-    [UIView animateWithDuration:0.3 animations:^{
-      
-      view.transform = CGAffineTransformIdentity;
-    }];
-    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
-  }
+//  for (UICollectionViewLayoutAttributes *attribute in attributes) {
+//    
+//    NSIndexPath *indexPath = attribute.indexPath;
+//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//    UIView *view = cell.contentView.subviews[0];
+//    view.userInteractionEnabled = YES;
+//    [UIView animateWithDuration:0.3 animations:^{
+//      
+//      view.transform = CGAffineTransformIdentity;
+//    }];
+//    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
+//  }
   
   return attributes;
   

@@ -19,6 +19,7 @@
 		2C8A81731A91924100AEE5FF /* json in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81721A91924100AEE5FF /* json */; };
 		2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81741A91EBD100AEE5FF /* conponentJson */; };
 		2C8A81771A91F72500AEE5FF /* pageJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81761A91F72500AEE5FF /* pageJson */; };
+		2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */; };
 		2CD9C61A1A89EC8800BCD69B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6191A89EC8800BCD69B /* main.m */; };
 		2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61C1A89EC8800BCD69B /* AppDelegate.m */; };
 		2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61F1A89EC8800BCD69B /* ViewController.m */; };
@@ -65,6 +66,8 @@
 		2C8A81721A91924100AEE5FF /* json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json; sourceTree = "<group>"; };
 		2C8A81741A91EBD100AEE5FF /* conponentJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conponentJson; sourceTree = "<group>"; };
 		2C8A81761A91F72500AEE5FF /* pageJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pageJson; sourceTree = "<group>"; };
+		2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTransitionLayout.h; sourceTree = "<group>"; };
+		2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTransitionLayout.m; sourceTree = "<group>"; };
 		2CD9C6141A89EC8800BCD69B /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD9C6181A89EC8800BCD69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CD9C6191A89EC8800BCD69B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				2CFA56C01AB68A450068313C /* CUNormalLayout.m */,
 				2CFA56CD1AB6CFEB0068313C /* CUSmallLayout.h */,
 				2CFA56CE1AB6CFEB0068313C /* CUSmallLayout.m */,
+				2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */,
+				2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */,
 				2CFA56C81AB68EAD0068313C /* CUPageNode.m in Sources */,
 				2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */,
 				2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */,
