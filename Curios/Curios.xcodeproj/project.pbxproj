@@ -20,6 +20,8 @@
 		2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81741A91EBD100AEE5FF /* conponentJson */; };
 		2C8A81771A91F72500AEE5FF /* pageJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81761A91F72500AEE5FF /* pageJson */; };
 		2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */; };
+		2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */; };
+		2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */; };
 		2CD9C61A1A89EC8800BCD69B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6191A89EC8800BCD69B /* main.m */; };
 		2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61C1A89EC8800BCD69B /* AppDelegate.m */; };
 		2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61F1A89EC8800BCD69B /* ViewController.m */; };
@@ -68,6 +70,11 @@
 		2C8A81761A91F72500AEE5FF /* pageJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pageJson; sourceTree = "<group>"; };
 		2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTransitionLayout.h; sourceTree = "<group>"; };
 		2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTransitionLayout.m; sourceTree = "<group>"; };
+		2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateCollectionViewController.h; sourceTree = "<group>"; };
+		2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateCollectionViewController.m; sourceTree = "<group>"; };
+		2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Curios-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateLayout.h; sourceTree = "<group>"; };
+		2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateLayout.m; sourceTree = "<group>"; };
 		2CD9C6141A89EC8800BCD69B /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD9C6181A89EC8800BCD69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CD9C6191A89EC8800BCD69B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -203,6 +210,8 @@
 				2CD9C61F1A89EC8800BCD69B /* ViewController.m */,
 				2CFA56BB1AB684C00068313C /* EditViewController.h */,
 				2CFA56BC1AB684C00068313C /* EditViewController.m */,
+				2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */,
+				2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */,
 				2CD9C6211A89EC8800BCD69B /* Main.storyboard */,
 				2CD9C6241A89EC8800BCD69B /* Images.xcassets */,
 				2CD9C6261A89EC8800BCD69B /* LaunchScreen.xib */,
@@ -249,6 +258,9 @@
 				2CFA56CE1AB6CFEB0068313C /* CUSmallLayout.m */,
 				2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */,
 				2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */,
+				2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */,
+				2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */,
+				2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -416,6 +428,7 @@
 				2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
 				2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */,
+				2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */,
 				2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */,
 				2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */,
 				2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */,
@@ -423,6 +436,7 @@
 				2CFA56CF1AB6CFEB0068313C /* CUSmallLayout.m in Sources */,
 				2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */,
 				2CD9C61A1A89EC8800BCD69B /* main.m in Sources */,
+				2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */,
 				2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */,
 				2C215F151A8B48280013FB88 /* CUConModel.m in Sources */,
 			);
@@ -549,9 +563,12 @@
 			baseConfigurationReference = 1C52CE6BF18A69810E351D07 /* Pods-Curios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Curios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Curios/Curios-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -560,9 +577,11 @@
 			baseConfigurationReference = C86621E8DF2FA884CEB11E51 /* Pods-Curios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Curios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Curios/Curios-Bridging-Header.h";
 			};
 			name = Release;
 		};

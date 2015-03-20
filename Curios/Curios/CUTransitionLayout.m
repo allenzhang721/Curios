@@ -7,6 +7,8 @@
 //
 
 #import "CUTransitionLayout.h"
+#import "CUNormalLayout.h"
+#import "CUSmallLayout.h"
 
 static CGFloat const _goldenRatio = 0.618;
 static CGFloat const _minTopGap = 20;
@@ -19,7 +21,7 @@ static CGFloat const _largeLeadingGap = 30;
 
 
 CGSize _collectionViewSize;
-CGFloat _scale;
+CGFloat _minScale;
 }
 
 - (instancetype)initWithCurrentLayout:(UICollectionViewLayout *)currentLayout nextLayout:(UICollectionViewLayout *)newLayout {
@@ -34,19 +36,16 @@ CGFloat _scale;
     
     CGFloat largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
     CGFloat largeHeight = largeWidth / _aspectRatio;
+
     
-//    CGFloat insetTop = _minTopGap;
-//    CGFloat insetHor = (_collectionViewSize.width - smallWidth) / 2;
-//    CGFloat insetBottom = _collectionViewSize.height - _minTopGap - smallHeight;
-    
-    
-    //    self.itemSize = CGSizeMake(smallWidth, smallHeight);
-    //    self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor, insetBottom, insetHor);
-    //    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    _scale = smallHeight / largeHeight;
+    _minScale = smallHeight / largeHeight;
     
   }
   return self;
+}
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+  return YES;
 }
 
 
@@ -55,15 +54,23 @@ CGFloat _scale;
 //  NSLog(@"ss = %.2f", self.transitionProgress);
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-  for (UICollectionViewLayoutAttributes *attri in attributes) {
+//  for (UICollectionViewLayoutAttributes *attri in attributes) {
 //    NSIndexPath *indexPath = attri.indexPath;
 //    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
 //    UIView *containerView = cell.contentView.subviews[0];
-//    containerView.transform = CGAffineTransformMakeScale(1 - (1 - _scale) * self.transitionProgress, 1 - (1 - _scale) * self.transitionProgress);
-//    containerView.transform = CGAffineTransformMakeScale(_scale, _scale);
-//    containerView.center = containerView.superview.center;
-    
-  }
+//    NSLog(@"%.2f", self.transitionProgress);
+//    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
+////      containerView.transform = CGAffineTransformMakeScale(1 - (1 - 0.4) * self.transitionProgress, 1 - (1 - 0.4) * self.transitionProgress);
+//    } else {
+////      containerView.transform = CGAffineTransformIdentity;
+//    }
+//    
+//////    containerView.transform = CGAffineTransformMakeScale(self.transitionProgress * _minScale, self.transitionProgress * _minScale);
+////    CGRect frame = containerView.frame;
+////    frame.origin = CGPointZero;
+////    containerView.frame =frame;
+//    
+//  }
   
   return attributes;
   

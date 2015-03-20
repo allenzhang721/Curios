@@ -19,16 +19,21 @@ typedef void(^animationDidCompleted)();
 
 @interface EditViewController ()<UICollectionViewDataSource, UICollectionViewDelegate> {
   
-  UICollectionViewFlowLayout *_smallLayout;
-  UICollectionViewFlowLayout *_normalLayout;
+  CUSmallLayout *_smallLayout;
+  CUNormalLayout *_normalLayout;
   CUTransitionLayout *_transitionLayout;
   animationDidCompleted _animationCompletedBlock;
   
   BOOL isNormalLayout;
+  BOOL transitioning;
+  BOOL transitonFishing;
+  BOOL animationing;
   
   CGFloat _targetY;
   CGFloat oldTotalProgress;
 }
+@property (weak, nonatomic) IBOutlet UIView *teplateView;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) IBOutlet UICollectionView *editCollectionView;
 @property (nonatomic) CGFloat totalProgress;
 @end
@@ -38,116 +43,85 @@ typedef void(^animationDidCompleted)();
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _smallLayout = [[UICollectionViewFlowLayout alloc] init];
-  _normalLayout = [[UICollectionViewFlowLayout alloc] init];
+  _smallLayout = [[CUSmallLayout alloc] init];
+  _normalLayout = [[CUNormalLayout alloc] init];
   [_editCollectionView setCollectionViewLayout:_normalLayout];
 
   _targetY = CGRectGetHeight(self.view.bounds);
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-  return YES;
-}
-
-- (IBAction)changeLayoutAction:(UIButton *)sender {
   
-  isNormalLayout = [_editCollectionView.collectionViewLayout isKindOfClass:CUNormalLayout.class];
-  [_editCollectionView startInteractiveTransitionToCollectionViewLayout:_smallLayout completion:^(BOOL completed, BOOL finished) {
-  }];
-
-  if (_totalProgress == 0) {
-    [self toggleTemplateShowOnAndHidden:YES];
-  } else {
-    [self toggleTemplateShowOnAndHidden:NO];
-  }
+//  CGRect frame = _teplateView.frame;
+//  frame.size.height = CGRectGetHeight(self.view.bounds) * 0.618;
+//  _teplateView.frame = frame;
+  
+  transitonFishing  = YES;
+  animationing = NO;
 }
 
 - (IBAction)panAction:(UIPanGestureRecognizer *)sender {
+  
+  if (animationing && !transitonFishing) {
+    return;
+  }
   
   
   CGPoint location = [sender locationInView: self.view];
   CGPoint transition = [sender translationInView:self.view];
   CGFloat progress = ChangeProgress(transition.y, location.y, _targetY);
   
-  __weak typeof(self) weakSelf = self;
+//  __weak typeof(self) weakSelf = self;
   switch (sender.state) {
     case UIGestureRecognizerStateBegan: {
       
-      [self pop_removeAllAnimations];
-      if ([self getTransitionLayout]) {
-        NSLog(@"cancelInteractiveTransition");
-        
-//        [_editCollectionView setCollectionViewLayout:_normalLayout];
-        
+      if (!transitioning) { // 未处于过渡态时
+        transitioning = YES;
+        isNormalLayout = [_editCollectionView.collectionViewLayout isKindOfClass:[CUNormalLayout class]];
+        [_editCollectionView startInteractiveTransitionToCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout completion:^(BOOL completed, BOOL finished) {
+          
+          if (finished) {
+            NSLog(@"finished");
+            transitioning = NO;
+            transitonFishing = YES;
+          }
+          if (completed) {
+            NSLog(@"complete");
+            transitioning = NO;
+            transitonFishing = YES;
+          }
+          
+        }];
       }
-      
-//      oldTotalProgress = _totalProgress;
-//      self.totalProgress = oldTotalProgress;
-      isNormalLayout = [_editCollectionView.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]];
-      
-      
-      NSLog(@"%d", isNormalLayout);
-      
-      
-      [_editCollectionView startInteractiveTransitionToCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout completion:^(BOOL completed, BOOL finished) {
-        
-        if (completed) {
-          NSLog(@"completed");
-        }
-        
-        if (finished) {
-          NSLog(@"finished");
-        }
-        
-      }];
     }
       break;
       
     case UIGestureRecognizerStateChanged: {
       
-//      if (beginIsNormalLayout) {
-//        self.totalProgress = oldTotalProgress + (1 - oldTotalProgress) * POPTransition(progress, 0, 1);
-//        NSLog(@"oldTotalProgress = %.2f", _totalProgress);
-//      } else {
-//        self.totalProgress = 1 - oldTotalProgress * POPTransition(-progress, 0, 1);
-//      }
-      
-     
     }
       break;
       
     case UIGestureRecognizerStateEnded: {
-      NSLog(@"UIGestureRecognizerStateEnded");
-//      [_editCollectionView cancelInteractiveTransition];
-//      NSLog(@"_totalProgress = %.2f", _totalProgress);
       
-//      if (_totalProgress > 0.5) {
-        _animationCompletedBlock = ^{
-            [weakSelf.editCollectionView cancelInteractiveTransition];
-        };
-//      } else {
-//        _animationCompletedBlock = ^{
-//            [weakSelf.editCollectionView cancelInteractiveTransition];
-//        };
-//      }
-//      [self toggleTemplateShowOnAndHidden:YES];
+      if (transitioning && transitonFishing) {
+        transitonFishing = NO;
+        animationing = YES;
+        if (isNormalLayout) {
+          if (progress > 0.3) {
+            [_editCollectionView finishInteractiveTransition]; // 已经执行finished，但仍处于过渡态
+            [self toggleTemplateShowOnAndHidden:YES];
+          } else {
+            [_editCollectionView cancelInteractiveTransition]; // 恢复
+            [self toggleTemplateShowOnAndHidden:NO]; // animationing
+          }
+        } else {
+          if (progress < -0.3) {
+            [_editCollectionView finishInteractiveTransition];
+            [self toggleTemplateShowOnAndHidden:NO];
+          } else {
+            [_editCollectionView cancelInteractiveTransition];
+            [self toggleTemplateShowOnAndHidden:YES];
+          }
+        }
+      }
       
-//      if (_totalProgress > 0.5) {
-//        if (beginIsNormalLayout) {
-          [self toggleTemplateShowOnAndHidden:YES];
-//        } else {
-//          [self toggleTemplateShowOnAndHidden:NO];
-//        }
-//        
-//      } else {
-//        if (beginIsNormalLayout) {
-//          [self toggleTemplateShowOnAndHidden:NO];
-//        } else {
-//          [self toggleTemplateShowOnAndHidden:YES];
-//        }
-//        
-//      }
     }
       break;
       
@@ -156,12 +130,11 @@ typedef void(^animationDidCompleted)();
   }
 }
 
--(UICollectionViewTransitionLayout *)getTransitionLayout{
+-(CUTransitionLayout *)getTransitionLayout{
   
   if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUTransitionLayout class]]) {
-    return (UICollectionViewTransitionLayout *)_editCollectionView.collectionViewLayout ;
-  }
-  else{
+    return (CUTransitionLayout *)_editCollectionView.collectionViewLayout ;
+  } else {
     return nil;
   }
 }
@@ -170,13 +143,13 @@ typedef void(^animationDidCompleted)();
 #pragma mark - Pop
 
 - (void)toggleTemplateShowOnAndHidden:(BOOL)on {
+  
   POPSpringAnimation *animation = [self pop_animationForKey:@"photoIsZoomedOut"];
   
   if (!animation) {
     animation = [POPSpringAnimation animation];
-    animation.springBounciness = 1;
+    animation.springBounciness = 0;
     animation.springSpeed = 10;
-//    animation.delegate = self;
     animation.property = [POPAnimatableProperty propertyWithName:@"totalProgress" initializer:^(POPMutableAnimatableProperty *prop) {
       prop.readBlock = ^(EditViewController *obj, CGFloat values[]) {
         values[0] = obj.totalProgress;
@@ -190,42 +163,35 @@ typedef void(^animationDidCompleted)();
     [self pop_addAnimation:animation forKey:@"photoIsZoomedOut"];
   }
   animation.toValue = on ? @(1.0) : @(0.0);
+  
+  
+  
   animation.completionBlock = ^(POPAnimation *anim, BOOL finished){
   
-    NSLog(@"animation complete");
     if (finished) {
+      animationing = NO;
       NSLog(@"animation finished");
-      if (_animationCompletedBlock) {
-        _animationCompletedBlock();
-      }
-    } else {
-      if (_animationCompletedBlock) {
-        _animationCompletedBlock();
-      }
     }
   };
 }
 
 - (void)setTotalProgress:(CGFloat)progress {
-  
   _totalProgress = progress;
   
-  if (isNormalLayout) {
-    
-    CGFloat Ytransition = POPTransition(progress, 0, 568 * 0.618);
-    POPLayerSetTranslationY(_editCollectionView.layer, Ytransition);
-  } else {
-    CGFloat Ytransition = POPTransition(progress, 568 * 0.618, 0);
-//    NSLog(@"progress = %.2f", progress);
-    POPLayerSetTranslationY(_editCollectionView.layer, Ytransition);
-  }
+  CGFloat YTransition = POPTransition(progress, 0, CGRectGetHeight(self.view.bounds) * 0.618);
+  POPLayerSetTranslationY(_editCollectionView.layer, YTransition);
   
-//  CGFloat CellTransition = POPTransition(progress, 0, 1);
-//  if ([self getTransitionLayout]) {
-//    [self getTransitionLayout].transitionProgress = CellTransition;
+//  if (isNormalLayout) {
+//    CGFloat layoutTransition = POPTransition(progress, 0, 1);
+//    [self getTransitionLayout].transitionProgress = layoutTransition;
+//    [_editCollectionView.collectionViewLayout invalidateLayout];
+//  } else {
+//    CGFloat layoutTransition = POPTransition( 1- progress, 0, 1);
+//    [self getTransitionLayout].transitionProgress = layoutTransition;
+//    [_editCollectionView.collectionViewLayout invalidateLayout];
 //  }
+  
 
-//  CGFloat opacity = POPTransition(progress, 1, 0.1);
 }
 
 // Utilities
@@ -259,7 +225,7 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
   
   NSLog(@"fromLayout = %@ \n", fromLayout);
   
-  return [[UICollectionViewTransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
+  return [[CUTransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
 }
 
 @end

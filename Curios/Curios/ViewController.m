@@ -24,6 +24,11 @@
 //  [self logJson];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return YES;
+}
+
 - (void)logJson {
   
   NSString *path = [[NSBundle mainBundle] pathForResource:@"json" ofType:@""];

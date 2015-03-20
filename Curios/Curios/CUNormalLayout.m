@@ -24,7 +24,7 @@ static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
   if (self) {
     
     
-    _collectionViewSize = CGSizeMake(320,548);;
+    _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
     CGFloat itemWidth = _collectionViewSize.width - _largeLeadingGap * 2;
     CGFloat itemHeight = itemWidth / _aspectRatio;
     
@@ -65,18 +65,19 @@ static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
   
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-//  for (UICollectionViewLayoutAttributes *attribute in attributes) {
-//    
+  for (UICollectionViewLayoutAttributes *attribute in attributes) {
+    
 //    NSIndexPath *indexPath = attribute.indexPath;
 //    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
 //    UIView *view = cell.contentView.subviews[0];
+//    view.center = view.superview.center;
 //    view.userInteractionEnabled = YES;
 //    [UIView animateWithDuration:0.3 animations:^{
 //      
 //      view.transform = CGAffineTransformIdentity;
 //    }];
-//    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
-//  }
+    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
+  }
   
   return attributes;
   
