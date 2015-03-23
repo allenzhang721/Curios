@@ -11,7 +11,7 @@
 static CGFloat const _goldenRatio = 0.618;
 static CGFloat const _minTopGap = 20;
 static CGFloat const _itemSpacing = 20;
-static CGFloat const _pannelOffset = 44;
+static CGFloat const _pannelOffset = 44.0;
 static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
 static CGFloat const _largeLeadingGap = 30;
 
@@ -34,7 +34,7 @@ static CGFloat const _largeLeadingGap = 30;
     
     CGFloat insetTop = _minTopGap;
     CGFloat insetHor = (_collectionViewSize.width - smallWidth) / 2;
-    CGFloat insetBottom = _collectionViewSize.height - _minTopGap - smallHeight;
+    CGFloat insetBottom = _collectionViewSize.height - _minTopGap * 2 - smallHeight;
     
     
     self.itemSize = CGSizeMake(smallWidth, smallHeight);

@@ -179,6 +179,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JH3-nk-F9o">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
                                 <collectionViewLayout key="collectionViewLayout" id="Ehn-pp-51B" customClass="CUTemplateLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplateCell" id="dd3-ba-44c">
@@ -210,16 +211,21 @@
                                 <connections>
                                     <outlet property="dataSource" destination="tp7-Uc-tGj" id="HmE-Fc-OSZ"/>
                                     <outlet property="delegate" destination="tp7-Uc-tGj" id="yIa-Sh-nDm"/>
+                                    <outletCollection property="gestureRecognizers" destination="H27-ec-cZb" appends="YES" id="B1x-rP-irA"/>
                                 </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="JH3-nk-F9o" firstAttribute="top" secondItem="S1Q-Ju-Psb" secondAttribute="top" id="2BB-3q-XLF"/>
                             <constraint firstItem="JH3-nk-F9o" firstAttribute="leading" secondItem="S1Q-Ju-Psb" secondAttribute="leading" id="ECK-Qc-KCz"/>
                             <constraint firstAttribute="trailing" secondItem="JH3-nk-F9o" secondAttribute="trailing" id="Iov-KA-5Jo"/>
                             <constraint firstItem="JH3-nk-F9o" firstAttribute="bottom" secondItem="m8h-p0-kXb" secondAttribute="top" id="mFs-XN-az3"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="w0m-Ln-TjI" appends="YES" id="UUt-6Q-M6m"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="oh8-1q-4eE"/>
                     <connections>
@@ -227,6 +233,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JOb-sm-R7g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="H27-ec-cZb">
+                    <connections>
+                        <action selector="longpressAction:" destination="tp7-Uc-tGj" id="oCN-gv-J3n"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="w0m-Ln-TjI">
+                    <connections>
+                        <action selector="panAction:" destination="tp7-Uc-tGj" id="Hbj-sv-eDz"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1842" y="1194"/>
         </scene>

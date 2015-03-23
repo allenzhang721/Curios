@@ -15,12 +15,61 @@
 
 static NSString * const reuseIdentifier = @"TemplateCell";
 
-@implementation CUTemplateViewController
+@implementation CUTemplateViewController {
+  
+  UIView *snapShot;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
   self.collectionView.pagingEnabled = YES;
+}
+
+#pragma mark -
+#pragma mark - gesture 
+
+- (IBAction)longpressAction:(UILongPressGestureRecognizer *)sender {
+  
+  
+  
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan:
+    {
+      CGPoint location = [sender locationInView:self.collectionView];
+      
+      UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:[self.collectionView  indexPathForItemAtPoint:location]];
+      snapShot = [cell snapshotViewAfterScreenUpdates:YES];
+      CGPoint superLoction = [sender locationInView:self.navigationController.parentViewController.view];
+      [self.navigationController.parentViewController.view addSubview:snapShot];
+      snapShot.center = superLoction;
+    }
+      break;
+      
+      case UIGestureRecognizerStateChanged:
+    {
+      NSLog(@"longpress change");
+      if (snapShot) {
+        CGPoint superLoction = [sender locationInView:self.navigationController.parentViewController.view];
+        NSLog(@"superLoction = %@", NSStringFromCGPoint(superLoction));
+        snapShot.center = superLoction;
+      }
+    }
+      break;
+      
+    case UIGestureRecognizerStateEnded: {
+      
+      [snapShot removeFromSuperview];
+    }
+      
+    default:
+      break;
+  }
+}
+
+- (IBAction)panAction:(UIPanGestureRecognizer *)sender {
+  
+  NSLog(@"pan action");
 }
 
 

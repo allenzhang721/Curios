@@ -84,6 +84,9 @@ typedef void(^animationDidCompleted)();
   }];
 }
 
+
+
+
 - (IBAction)panAction:(UIPanGestureRecognizer *)sender {
   
   if (animationing && !transitonFishing) {
@@ -210,17 +213,6 @@ typedef void(^animationDidCompleted)();
   
   CGFloat opacity = POPTransition(progress, 1, 0);
   _naviToolBar.layer.opacity = opacity;
-//  if (isNormalLayout) {
-//    CGFloat layoutTransition = POPTransition(progress, 0, 1);
-//    [self getTransitionLayout].transitionProgress = layoutTransition;
-//    [_editCollectionView.collectionViewLayout invalidateLayout];
-//  } else {
-//    CGFloat layoutTransition = POPTransition( 1- progress, 0, 1);
-//    [self getTransitionLayout].transitionProgress = layoutTransition;
-//    [_editCollectionView.collectionViewLayout invalidateLayout];
-//  }
-  
-
 }
 
 // Utilities
