@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2BCDC28BBCDD09EAE7F5B486 /* libPods-Curios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FCD396CE8829FEEFDB45EB /* libPods-Curios.a */; };
+		2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */; };
+		2C003C4A1ABFB3F400F27618 /* CUSubTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */; };
 		2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */; };
 		2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F111A8B480A0013FB88 /* CUPageModel.m */; };
 		2C215F151A8B48280013FB88 /* CUConModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F141A8B48280013FB88 /* CUConModel.m */; };
@@ -20,7 +22,6 @@
 		2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81741A91EBD100AEE5FF /* conponentJson */; };
 		2C8A81771A91F72500AEE5FF /* pageJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81761A91F72500AEE5FF /* pageJson */; };
 		2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */; };
-		2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */; };
 		2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */; };
 		2CD9C61A1A89EC8800BCD69B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6191A89EC8800BCD69B /* main.m */; };
 		2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61C1A89EC8800BCD69B /* AppDelegate.m */; };
@@ -48,6 +49,10 @@
 
 /* Begin PBXFileReference section */
 		1C52CE6BF18A69810E351D07 /* Pods-Curios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Curios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Curios/Pods-Curios.debug.xcconfig"; sourceTree = "<group>"; };
+		2C003C451ABFB25A00F27618 /* CUTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateViewController.h; sourceTree = "<group>"; };
+		2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateViewController.m; sourceTree = "<group>"; };
+		2C003C481ABFB3F400F27618 /* CUSubTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUSubTemplateViewController.h; sourceTree = "<group>"; };
+		2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUSubTemplateViewController.m; sourceTree = "<group>"; };
 		2C215F0D1A8B479D0013FB88 /* CUBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUBaseModel.h; sourceTree = "<group>"; };
 		2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUBaseModel.m; sourceTree = "<group>"; };
 		2C215F101A8B480A0013FB88 /* CUPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageModel.h; sourceTree = "<group>"; };
@@ -70,8 +75,6 @@
 		2C8A81761A91F72500AEE5FF /* pageJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pageJson; sourceTree = "<group>"; };
 		2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTransitionLayout.h; sourceTree = "<group>"; };
 		2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTransitionLayout.m; sourceTree = "<group>"; };
-		2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateCollectionViewController.h; sourceTree = "<group>"; };
-		2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateCollectionViewController.m; sourceTree = "<group>"; };
 		2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Curios-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateLayout.h; sourceTree = "<group>"; };
 		2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateLayout.m; sourceTree = "<group>"; };
@@ -210,8 +213,10 @@
 				2CD9C61F1A89EC8800BCD69B /* ViewController.m */,
 				2CFA56BB1AB684C00068313C /* EditViewController.h */,
 				2CFA56BC1AB684C00068313C /* EditViewController.m */,
-				2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */,
-				2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */,
+				2C003C451ABFB25A00F27618 /* CUTemplateViewController.h */,
+				2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */,
+				2C003C481ABFB3F400F27618 /* CUSubTemplateViewController.h */,
+				2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */,
 				2CD9C6211A89EC8800BCD69B /* Main.storyboard */,
 				2CD9C6241A89EC8800BCD69B /* Images.xcassets */,
 				2CD9C6261A89EC8800BCD69B /* LaunchScreen.xib */,
@@ -428,7 +433,7 @@
 				2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
 				2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */,
-				2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */,
+				2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */,
 				2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */,
 				2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */,
 				2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */,
@@ -439,6 +444,7 @@
 				2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */,
 				2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */,
 				2C215F151A8B48280013FB88 /* CUConModel.m in Sources */,
+				2C003C4A1ABFB3F400F27618 /* CUSubTemplateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

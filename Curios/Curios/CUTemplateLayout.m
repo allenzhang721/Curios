@@ -32,7 +32,7 @@ static CGFloat const _minTopGap = 44.0;
      
      <<<<< */
     
-    _collectionViewSize = size;
+    _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), 0.618 * CGRectGetHeight([[UIScreen mainScreen] bounds]));
     CGFloat smallHeight = (_collectionViewSize.height - _minTopGap) / 2.0;
     CGFloat smallWidth = (_collectionViewSize.width ) / 3.0;
     
@@ -47,6 +47,29 @@ static CGFloat const _minTopGap = 44.0;
     self.minimumInteritemSpacing = 0;
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
+  }
+  return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+  self = [super initWithCoder:coder];
+  if (self) {
+    
+    _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), 0.618 * CGRectGetHeight([[UIScreen mainScreen] bounds]));
+    CGFloat smallHeight = (_collectionViewSize.height - _minTopGap) / 2.005;
+    CGFloat smallWidth = (_collectionViewSize.width ) / 3.0;
+    
+    CGFloat insetTop = _minTopGap;
+    CGFloat insetHor = 0;
+    //    CGFloat insetBottom = _collectionViewSize.height  * (1 - _goldenRatio);
+    
+    
+    self.itemSize = CGSizeMake(smallWidth, smallHeight);
+    self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor,0 , insetHor);
+    self.minimumLineSpacing = 0;
+    self.minimumInteritemSpacing = 0;
+    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
   }
   return self;
 }

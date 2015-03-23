@@ -11,6 +11,7 @@
 #import "CUSmallLayout.h"
 #import "CUPageNode.h"
 #import "CUTransitionLayout.h"
+#import <Masonry.h>
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <POP/POP.h>
 #import <POP/POPLayerExtras.h>
@@ -32,9 +33,14 @@ typedef void(^animationDidCompleted)();
   CGFloat _targetY;
   CGFloat oldTotalProgress;
 }
-@property (weak, nonatomic) IBOutlet UIView *teplateView;
+
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) IBOutlet UICollectionView *editCollectionView;
+@property (weak, nonatomic) IBOutlet UIToolbar *naviToolBar;
+@property (weak, nonatomic) IBOutlet UIToolbar *EditToolbar;
+
+
+
 @property (nonatomic) CGFloat totalProgress;
 @end
 
@@ -43,18 +49,39 @@ typedef void(^animationDidCompleted)();
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  [self setup];
+
+}
+
+
+- (void)setup {
+  
   _smallLayout = [[CUSmallLayout alloc] init];
   _normalLayout = [[CUNormalLayout alloc] init];
   [_editCollectionView setCollectionViewLayout:_normalLayout];
-
-  _targetY = CGRectGetHeight(self.view.bounds);
   
-//  CGRect frame = _teplateView.frame;
-//  frame.size.height = CGRectGetHeight(self.view.bounds) * 0.618;
-//  _teplateView.frame = frame;
+  [self setupTemplateController];
+  _targetY = CGRectGetHeight(self.view.bounds);
   
   transitonFishing  = YES;
   animationing = NO;
+  
+}
+
+- (void)setupTemplateController {
+  
+  UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.view.bounds) * (1 - 0.618), 0);
+  
+  UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+  UINavigationController *templateNavVC = [main instantiateViewControllerWithIdentifier:@"TemplateController"];
+  
+  [self addChildViewController:templateNavVC];
+  [self.view addSubview:templateNavVC.view];
+  [self.view sendSubviewToBack:templateNavVC.view];
+  
+  [templateNavVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.edges.equalTo(self.view).with.insets(padding);
+  }];
 }
 
 - (IBAction)panAction:(UIPanGestureRecognizer *)sender {
@@ -181,6 +208,8 @@ typedef void(^animationDidCompleted)();
   CGFloat YTransition = POPTransition(progress, 0, CGRectGetHeight(self.view.bounds) * 0.618);
   POPLayerSetTranslationY(_editCollectionView.layer, YTransition);
   
+  CGFloat opacity = POPTransition(progress, 1, 0);
+  _naviToolBar.layer.opacity = opacity;
 //  if (isNormalLayout) {
 //    CGFloat layoutTransition = POPTransition(progress, 0, 1);
 //    [self getTransitionLayout].transitionProgress = layoutTransition;

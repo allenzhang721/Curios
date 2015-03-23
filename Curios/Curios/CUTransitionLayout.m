@@ -30,7 +30,7 @@ CGFloat _minScale;
   
   if (self) {
     
-    _collectionViewSize = CGSizeMake(320, 548);
+    _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));;
     CGFloat smallHeight = _collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2;
     CGFloat smallWidth = smallHeight * _aspectRatio;
     
