@@ -15,10 +15,31 @@ static CGFloat const _pannelOffset = 44.0;
 static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
 static CGFloat const _largeLeadingGap = 30;
 
+typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
+  
+  CUSmallLayoutScrollDirectionToStay,
+  CUSmallLayoutScrollDirectionToTop,
+  CUSmallLayoutScrollDirectionToEnd
+  
+  
+};
+
+@interface CUSmallLayout ()<UIGestureRecognizerDelegate>
+
+@end
+
 @implementation CUSmallLayout {
+  
+  CUCellFakeView *_cellFakeView;
   
   CGSize _collectionViewSize;
   CGFloat _scale;
+  UILongPressGestureRecognizer *_longpress;
+  UIPanGestureRecognizer *_pan;
+  CADisplayLink *_displayLink;
+  CUSmallLayoutScrollDirection _continuousScrollDirection;
+  CGPoint _panTranslation;
+  CGPoint _fakeCellCenter;
 }
 
 - (instancetype)init
@@ -42,38 +63,10 @@ static CGFloat const _largeLeadingGap = 30;
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _scale = smallHeight / largeWidth;
     
+    [self configObserver];
   }
   return self;
 }
-
-//- (void)prepareLayout {
-//  
-//
-//  /* >>>>>  Mr.chen, 03.18.2015, _itemSize Caculator_
-//  
-//   largeSize.Width = collHeight - 2 * _largeLeadingGap
-//   largeSize.height = width / _aspectRatio
-//   
-//   smallSize.height = collHeight * (1 - 0.618) - pannelOffset - minTopGap * 2;
-//   smallSize.width = height * _aspectRatio
-//   
-//   _scale = smallHeight / largeHeight;
-//   
-//   sectionInset
-//   .top = minTopGap
-//   .bottom = collHeight - minTopGap - smallSize.height
-//   .left = (collWidth - smallSize.width) / 2;
-//   .rigth = .left;
-//  
-//  <<<<< */
-//  
-////  NSLog(@"%s",__FUNCTION__);
-//  
-//  
-////  self.minimumLineSpacing = insetBottom;
-//  
-//  
-//}
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
   
@@ -83,31 +76,19 @@ static CGFloat const _largeLeadingGap = 30;
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
   
-  NSArray *attributes = [super layoutAttributesForElementsInRect:CGRectMake(rect.origin.x - 1000, rect.origin.y, rect.size.width + 1000, rect.size.height)];
+  NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
   for (UICollectionViewLayoutAttributes *attribute in attributes) {
     
-//    NSIndexPath *indexPath = attribute.indexPath;
-//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//    UIView *view = cell.contentView.subviews[0];
-//    view.userInteractionEnabled = NO;
-//    view.center = cell.contentView.center;
-//    [UIView animateWithDuration:0.3 animations:^{
-//      
-//      view.center = cell.contentView.center;
-//      view.transform = CGAffineTransformMakeScale(_scale / 2.0, _scale / 2.0);
-//      
-//      
-//    } completion:^(BOOL finished) {
-//      if (finished) {
-//        
-//      }
-//    }];
-    //    attribute.transform = CGAffineTransformMakeScale(0.6, 0.6);
+    if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
+      if (_cellFakeView && _cellFakeView.indexPath == attribute.indexPath) {
+        
+        attribute.alpha = 0;
+      }
+    }
   }
   
   return attributes;
-  
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
@@ -131,5 +112,347 @@ static CGFloat const _largeLeadingGap = 30;
   }
   return CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y);
 }
+
+
+#pragma mark -
+#pragma mark - Reorder
+
+- (void)setupDisplayLink {
+  if (_displayLink) {
+    return;
+  }
+  _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(continueScroll)];
+  [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)invalidateDisplayLink {
+
+  _continuousScrollDirection = CUSmallLayoutScrollDirectionToStay;
+  [_displayLink invalidate];
+  _displayLink = nil;
+}
+
+- (void)configObserver {
+  
+  [self addObserver:self forKeyPath:@"collectionView" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  
+  if ([keyPath isEqualToString:@"collectionView"]) {
+    if (change[NSKeyValueChangeNewKey] != nil && ![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+      [self addGestures];
+    } else {
+      [self removeGestures];
+    }
+  } else {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+  }
+}
+
+- (void)addGestures {
+  if (!self.collectionView) {
+    return;
+  }
+  
+  if (_longpress && _pan) {
+    return;
+  }
+  
+  _longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressHandler:)];
+  _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
+  
+  _longpress.delegate = self;
+  _pan.delegate = self;
+  _pan.maximumNumberOfTouches = 1;
+  NSArray *gestures = self.collectionView.gestureRecognizers;
+  [gestures enumerateObjectsUsingBlock:^(UIGestureRecognizer* gesture, NSUInteger idx, BOOL *stop) {
+    
+    if ([gesture isKindOfClass: [UILongPressGestureRecognizer class]]) {
+      [gesture requireGestureRecognizerToFail:_longpress];
+    }
+  }];
+  
+  [self.collectionView addGestureRecognizer:_longpress];
+  [self.collectionView addGestureRecognizer:_pan];
+}
+
+- (void)removeGestures {
+  if (_longpress && _pan) {
+    [_longpress removeTarget:self action:@selector(longPressHandler:)];
+    [_pan removeTarget:self action:@selector(panHandler:)];
+    _longpress = nil;
+    _pan = nil;
+    
+  }
+}
+
+- (void)longPressHandler:(UILongPressGestureRecognizer *)sender {
+  
+//  NSLog(@"longpress");
+  CGPoint location = [sender locationInView:self.collectionView];
+  NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
+  
+  if (_cellFakeView != nil) {
+    indexPath = _cellFakeView.indexPath;
+  }
+  
+  if (indexPath == nil) {
+    return;
+  }
+  
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan: {
+      self.collectionView.scrollsToTop = NO;
+      
+      UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+      _cellFakeView = [CUCellFakeView fakeViewWithCell:cell];
+      _cellFakeView.indexPath = indexPath;
+      _cellFakeView.center = location;
+      _fakeCellCenter = _cellFakeView.center;
+      [self.collectionView addSubview:_cellFakeView];
+      [self invalidateLayout];
+    }
+      
+      break;
+      
+      case UIGestureRecognizerStateEnded:
+    case UIGestureRecognizerStateFailed: {
+      if (!_cellFakeView) {
+        break;
+      }
+      
+      self.collectionView.scrollsToTop = YES;
+      
+      _fakeCellCenter = CGPointZero;
+      [self invalidateDisplayLink];
+      [_cellFakeView removeFromSuperview];
+      _cellFakeView = nil;
+      [self invalidateLayout];
+    }
+      
+    default:
+      break;
+  }
+
+}
+
+- (void)panHandler:(UIPanGestureRecognizer *)sender {
+  _panTranslation = [sender translationInView:self.collectionView];
+  if (_cellFakeView != nil && !CGPointEqualToPoint(_panTranslation, CGPointZero)) {
+    
+    switch (sender.state) {
+      case UIGestureRecognizerStateChanged: {
+       CGFloat x = _panTranslation.x + _fakeCellCenter.x;
+       CGFloat y = _panTranslation.y + _fakeCellCenter.y;
+       CGPoint center = CGPointMake(x, y);
+        _cellFakeView.center = center;
+       
+        
+        [self beginScrollIfNeeded];
+        [self moveItemIfNeeded];
+      }
+        break;
+        
+        
+      default:
+        break;
+    }
+  }
+}
+
+- (CGFloat)calcTrigerPercentage {
+  if (!_cellFakeView) {
+    return 0;
+  }
+  
+  return 0.5;
+  
+}
+
+- (CGFloat)calcscrollRateWithSpeed:(CGFloat)speed percentage:(CGFloat)per {
+  if (!_cellFakeView) {
+    return 0;
+  }
+  CGFloat value = 0.0;
+  
+  switch (_continuousScrollDirection) {
+    case CUSmallLayoutScrollDirectionToTop:
+      value = -speed;
+      
+      break;
+      
+      case CUSmallLayoutScrollDirectionToEnd:
+      value = speed;
+      break;
+      
+      case CUSmallLayoutScrollDirectionToStay:
+      value = 0;
+      break;
+    default:
+      value = 0;
+      break;
+  }
+  
+  return value * MAX(0, MIN(1.0, per));
+}
+
+- (void)continueScroll {
+  
+  if (!_cellFakeView) {
+    return;
+  }
+  
+  // TODO: 03.24.2015, calculator flow percentage and scroll rate
+  CGFloat percentage = [self calcTrigerPercentage];
+  CGFloat scrollRate = [self calcscrollRateWithSpeed:10.0 percentage:percentage];
+  
+  CGFloat offsetTop = self.collectionView.contentOffset.x;
+  CGFloat insetTop = 50;
+  CGFloat insetEnd = 50;
+  CGFloat length = CGRectGetWidth(self.collectionView.bounds);
+  CGFloat contentLength = self.collectionView.contentSize.width;
+  
+  if (contentLength + insetTop + insetEnd <= length) {
+    return;
+  }
+  
+  if (offsetTop + scrollRate <= -insetTop) {
+    
+    scrollRate = -insetTop - offsetTop;
+  } else if (offsetTop + scrollRate >= contentLength + insetEnd - length) {
+    scrollRate = contentLength + insetEnd - length - offsetTop;
+  }
+  
+  [self.collectionView performBatchUpdates:^{
+    _fakeCellCenter.x += scrollRate;
+    CGPoint center = CGPointMake(_fakeCellCenter.x + _panTranslation.x, _cellFakeView.center.y);
+    _cellFakeView.center = center;
+    CGPoint contentOffset = CGPointMake(self.collectionView.contentOffset.x + scrollRate, self.collectionView.contentOffset.y);
+    self.collectionView.contentOffset = contentOffset;
+    
+  } completion:nil];
+  
+  [self moveItemIfNeeded];
+}
+
+- (void)beginScrollIfNeeded {
+  if (_cellFakeView == nil) {
+    return;
+  }
+  
+  CGPoint offset = self.collectionView.contentOffset;
+  CGFloat insetTop = self.collectionView.contentInset.left;
+  CGFloat insetEnd = self.collectionView.contentInset.right;
+  CGFloat triggerInsetTop = 50.0;
+  CGFloat triggerInsetEnd = 50.0;
+//  CGFloat triggerPadding
+  CGFloat contentLength = CGRectGetWidth(self.collectionView.bounds);
+  CGFloat fakeCellTopEdge = CGRectGetMinX(_cellFakeView.frame);
+  CGFloat fakecellEndEdge = CGRectGetMaxX(_cellFakeView.frame);
+  
+  if (fakeCellTopEdge <= offset.x + triggerInsetTop) {
+    _continuousScrollDirection = CUSmallLayoutScrollDirectionToTop;
+    [self setupDisplayLink];
+  } else if (fakecellEndEdge >= offset.x + contentLength - triggerInsetEnd) {
+    _continuousScrollDirection = CUSmallLayoutScrollDirectionToEnd;
+    [self setupDisplayLink];
+  } else {
+    [self invalidateDisplayLink];
+  }
+  
+}
+
+- (void)moveItemIfNeeded {
+  
+  NSIndexPath *fromIndexPath;
+  NSIndexPath *toIndexPath;
+  if (_cellFakeView) {
+    
+    fromIndexPath = _cellFakeView.indexPath;
+    toIndexPath = [self.collectionView indexPathForItemAtPoint:_cellFakeView.center];
+  }
+  
+  if (fromIndexPath == nil || toIndexPath == nil) {
+    return;
+  }
+  
+  if (fromIndexPath == toIndexPath) {
+    return;
+  }
+  
+  //TODO: Delegate can move item
+  
+  
+  [self.collectionView performBatchUpdates:^{
+    _cellFakeView.indexPath = toIndexPath;
+    
+    [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
+    [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
+    
+  } completion:nil];
+  
+  
+  //TODO: Delegate did move item
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+  
+  if (gestureRecognizer == _longpress) {
+    if (self.collectionView.panGestureRecognizer.state != UIGestureRecognizerStatePossible && self.collectionView.panGestureRecognizer.state != UIGestureRecognizerStateFailed) {
+      return NO;
+    }
+  } else if (gestureRecognizer == _pan) {
+    if (_longpress.state == UIGestureRecognizerStatePossible || _longpress.state == UIGestureRecognizerStateFailed) {
+      return NO;
+    }
+  }
+  
+  return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+  if (gestureRecognizer == _longpress) {
+    if (otherGestureRecognizer == _pan) {
+      return YES;
+    }
+  } else if (gestureRecognizer == _pan) {
+    if (otherGestureRecognizer == _longpress) {
+      return YES;
+    } else {
+      return NO;
+    }
+  } else if (gestureRecognizer == self.collectionView.panGestureRecognizer) {
+    if (_longpress.state != UIGestureRecognizerStatePossible || _longpress.state != UIGestureRecognizerStateFailed) {
+      return NO;
+    }
+  }
+  
+  return YES;
+}
+
+@end
+
+@implementation CUCellFakeView {
+  
+  __weak UICollectionViewCell *_cell;
+}
+
++ (instancetype)fakeViewWithCell:(UICollectionViewCell *)cell {
+  
+  return [[CUCellFakeView alloc] initWithCell:cell];
+}
+
+- (instancetype)initWithCell:(UICollectionViewCell *)cell {
+  if (self = [super initWithFrame:cell.frame]) {
+    
+    _cell = cell;
+    
+    UIView *cellSnapshot = [cell snapshotViewAfterScreenUpdates:YES];
+    [self addSubview:cellSnapshot];
+  }
+  return self;
+}
+
 
 @end

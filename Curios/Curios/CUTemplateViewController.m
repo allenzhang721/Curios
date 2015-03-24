@@ -31,8 +31,6 @@ static NSString * const reuseIdentifier = @"TemplateCell";
 
 - (IBAction)longpressAction:(UILongPressGestureRecognizer *)sender {
   
-  
-  
   switch (sender.state) {
     case UIGestureRecognizerStateBegan:
     {

@@ -11,3 +11,11 @@
 @interface CUSmallLayout : UICollectionViewFlowLayout
 
 @end
+
+
+@interface CUCellFakeView : UIView
+@property(nonatomic) NSIndexPath *indexPath;
+
++ (instancetype)fakeViewWithCell:(UICollectionViewCell *)cell;
+
+@end
