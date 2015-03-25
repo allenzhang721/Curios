@@ -148,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="492" y="1122"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Template Navi Controller-->
         <scene sceneID="PBP-yA-aub">
             <objects>
-                <navigationController storyboardIdentifier="TemplateController" navigationBarHidden="YES" id="1ZW-at-v0M" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TemplateController" navigationBarHidden="YES" id="1ZW-at-v0M" customClass="EMTemplateNaviController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="jaK-D5-Zxo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
