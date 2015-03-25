@@ -6,25 +6,45 @@
 //  Copyright (c) 2015年 BoTai Technology. All rights reserved.
 //
 
-#import "EMTemplateNaviController.h"
+#import "CUTemplateNaviController.h"
 #import "TransitionPushAnimator.h"
 #import "TransitionPopAnimator.h"
 
-@interface EMTemplateNaviController ()<UINavigationControllerDelegate>
+@interface CUTemplateNaviController ()<UINavigationControllerDelegate>
 
 @end
 
-@interface EMTemplateNaviController ()
+@interface CUTemplateNaviController ()
 
 @end
 
-@implementation EMTemplateNaviController
+@implementation CUTemplateNaviController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   self.delegate = self;
 }
+
+- (BOOL)shouldResponseToGestureLocation:(CGPoint)location {
+//  NSObject
+  if ([self.topViewController conformsToProtocol:@protocol(CUResponsegestureProtocol)]) {
+    return [(id<CUResponsegestureProtocol>)self.visibleViewController shouldResponseToGestureLocation:location];
+  } else {
+    return NO;
+  }
+  
+}
+
+- (UIView *)getResponseViewSnapShot {
+  
+  if ([self.topViewController conformsToProtocol:@protocol(CUResponsegestureProtocol)]) {
+    return [(id<CUResponsegestureProtocol>)self.visibleViewController getResponseViewSnapShot];
+  } else {
+    return nil;
+  }
+}
+
 
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                    animationControllerForOperation:(UINavigationControllerOperation)operation

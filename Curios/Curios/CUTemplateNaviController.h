@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUResponsegestureProtocol.h"
 
-@interface EMTemplateNaviController : UINavigationController
+@interface CUTemplateNaviController : UINavigationController<CUResponsegestureProtocol>
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUResponsegestureProtocol.h"
 
-@interface CUTemplateViewController : UIViewController
+@interface CUTemplateViewController : UIViewController<CUResponsegestureProtocol>
 
 @end

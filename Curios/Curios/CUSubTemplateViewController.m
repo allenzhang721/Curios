@@ -15,10 +15,15 @@
 
 static NSString * const reuseIdentifier = @"SubTemplateCell";
 
-@implementation CUSubTemplateViewController
+@implementation CUSubTemplateViewController {
+  
+  CGPoint _selectedPoint;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  self.collectionView.pagingEnabled = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -53,14 +58,24 @@ static NSString * const reuseIdentifier = @"SubTemplateCell";
 #pragma mark <UICollectionViewDelegate>
 
 
-/*
-#pragma mark - Navigation
+#pragma mark -
+#pragma mark - CUResponsegestureProtocol
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)shouldResponseToGestureLocation:(CGPoint)location {
+  
+  if ([self.collectionView indexPathForItemAtPoint:location] != nil) {
+    _selectedPoint = CGPointMake(location.x + self.collectionView.contentOffset.x, location.y + self.collectionView.contentOffset.y);
+    return YES;
+  } else {
+    return NO;
+  }
 }
-*/
+
+- (UIView *)getResponseViewSnapShot {
+  
+  NSIndexPath *indexPath = [_collectionView indexPathForItemAtPoint:_selectedPoint];
+  UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
+  return [cell snapshotViewAfterScreenUpdates:NO];
+}
 
 @end

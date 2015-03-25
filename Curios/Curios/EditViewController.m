@@ -11,6 +11,9 @@
 #import "CUSmallLayout.h"
 #import "CUPageNode.h"
 #import "CUTransitionLayout.h"
+#import "CUTemplateNaviController.h"
+#import "CUTemplateViewController.h"
+#import "CUSubTemplateViewController.h"
 #import <Masonry.h>
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <POP/POP.h>
@@ -29,17 +32,20 @@ typedef void(^animationDidCompleted)();
   BOOL transitioning;
   BOOL transitonFishing;
   BOOL animationing;
+  BOOL _shouldResponseLongPress;
   
   CGFloat _targetY;
   CGFloat oldTotalProgress;
+  NSUInteger count;
+  
+  CUTemplateNaviController *_templateNaviVC;
+  FakeCellView *_fakeTemplateView;
 }
 
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (weak, nonatomic) IBOutlet UICollectionView *editCollectionView;
 @property (weak, nonatomic) IBOutlet UIToolbar *naviToolBar;
 @property (weak, nonatomic) IBOutlet UIToolbar *EditToolbar;
-
-
 
 @property (nonatomic) CGFloat totalProgress;
 @end
@@ -48,9 +54,11 @@ typedef void(^animationDidCompleted)();
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  _shouldResponseLongPress = NO;
 
+  count = 20;
   [self setup];
-
 }
 
 
@@ -61,6 +69,7 @@ typedef void(^animationDidCompleted)();
   [_editCollectionView setCollectionViewLayout:_normalLayout];
   
   [self setupTemplateController];
+  
   _targetY = CGRectGetHeight(self.view.bounds);
   
   transitonFishing  = YES;
@@ -73,7 +82,7 @@ typedef void(^animationDidCompleted)();
   UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.view.bounds) * (1 - 0.618), 0);
   
   UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-  UINavigationController *templateNavVC = [main instantiateViewControllerWithIdentifier:@"TemplateController"];
+  CUTemplateNaviController *templateNavVC = [main instantiateViewControllerWithIdentifier:@"TemplateController"];
   
   [self addChildViewController:templateNavVC];
   [self.view addSubview:templateNavVC.view];
@@ -82,10 +91,12 @@ typedef void(^animationDidCompleted)();
   [templateNavVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
     make.edges.equalTo(self.view).with.insets(padding);
   }];
+  
+  _templateNaviVC = templateNavVC;
 }
 
-
-
+#pragma mark -
+#pragma mark - Gesture
 
 - (IBAction)panAction:(UIPanGestureRecognizer *)sender {
   
@@ -160,6 +171,68 @@ typedef void(^animationDidCompleted)();
   }
 }
 
+- (IBAction)longPressAction:(UILongPressGestureRecognizer *)sender {
+
+  CGPoint location = [sender locationInView:self.view];
+  if (_shouldResponseLongPress) {
+    
+    
+    switch (sender.state) {
+      case UIGestureRecognizerStateBegan: {
+        CGPoint location = [sender locationInView:_templateNaviVC.view];
+        if ([_templateNaviVC shouldResponseToGestureLocation:location]) {
+        
+          NSLog(@"begain longpress");
+          UIView *snapshot = [_templateNaviVC getResponseViewSnapShot];
+          _fakeTemplateView = [FakeCellView fakecellViewWith:snapshot];
+          _fakeTemplateView.center = location;
+          [self.view addSubview:_fakeTemplateView];
+          
+        }
+      }
+        break;
+        
+      case UIGestureRecognizerStateChanged: {
+        
+        if (_fakeTemplateView) {
+          
+          _fakeTemplateView.center = location;
+          
+          if (CGRectContainsPoint(_editCollectionView.frame, location) && count<= 21) {
+            
+            count+= 1;
+            [_editCollectionView performBatchUpdates:^{
+
+              NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+              [_editCollectionView insertItemsAtIndexPaths:@[indexPath]];
+            } completion:nil];
+          } else {
+            
+          }
+        }
+        
+        
+      }
+        break;
+        
+      case UIGestureRecognizerStateFailed:
+      case UIGestureRecognizerStateEnded: {
+        
+        [_fakeTemplateView removeFromSuperview];
+        _fakeTemplateView = nil;
+      }
+        break;
+      default:
+        break;
+    }
+    
+//    NSLog(@"longpress");
+  }
+  
+  
+}
+
+
 -(CUTransitionLayout *)getTransitionLayout{
   
   if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUTransitionLayout class]]) {
@@ -200,7 +273,13 @@ typedef void(^animationDidCompleted)();
   
     if (finished) {
       animationing = NO;
-      NSLog(@"animation finished");
+      if (_totalProgress >= 1.0) {
+        
+        _shouldResponseLongPress = YES;
+      } else {
+        _shouldResponseLongPress = NO;
+      }
+//      NSLog(@"animation finished");
     }
   };
 }
@@ -229,7 +308,7 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return 20;
+  return count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -250,3 +329,24 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
 }
 
 @end
+
+
+@implementation FakeCellView
+
++ (instancetype)fakecellViewWith:(UIView *)uiview{
+  return [[FakeCellView alloc] initWithFakeCellView:uiview];
+}
+
+- (instancetype)initWithFakeCellView:(UIView *)view {
+  
+  if (self = [super initWithFrame:view.bounds]) {
+    
+    [self addSubview:view];
+  }
+  
+  return self;
+  
+}
+
+@end
+

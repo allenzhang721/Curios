@@ -15,9 +15,9 @@
 
 static NSString * const reuseIdentifier = @"TemplateCell";
 
-@implementation CUTemplateViewController {
+@implementation CUTemplateViewController  {
   
-  UIView *snapShot;
+  CGPoint _selectedPoint;
 }
 
 - (void)viewDidLoad {
@@ -25,51 +25,6 @@ static NSString * const reuseIdentifier = @"TemplateCell";
 
   self.collectionView.pagingEnabled = YES;
 }
-
-#pragma mark -
-#pragma mark - gesture 
-
-- (IBAction)longpressAction:(UILongPressGestureRecognizer *)sender {
-  
-  switch (sender.state) {
-    case UIGestureRecognizerStateBegan:
-    {
-      CGPoint location = [sender locationInView:self.collectionView];
-      
-      UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:[self.collectionView  indexPathForItemAtPoint:location]];
-      snapShot = [cell snapshotViewAfterScreenUpdates:YES];
-      CGPoint superLoction = [sender locationInView:self.navigationController.parentViewController.view];
-      [self.navigationController.parentViewController.view addSubview:snapShot];
-      snapShot.center = superLoction;
-    }
-      break;
-      
-      case UIGestureRecognizerStateChanged:
-    {
-      NSLog(@"longpress change");
-      if (snapShot) {
-        CGPoint superLoction = [sender locationInView:self.navigationController.parentViewController.view];
-        NSLog(@"superLoction = %@", NSStringFromCGPoint(superLoction));
-        snapShot.center = superLoction;
-      }
-    }
-      break;
-      
-    case UIGestureRecognizerStateEnded: {
-      
-      [snapShot removeFromSuperview];
-    }
-      
-    default:
-      break;
-  }
-}
-
-- (IBAction)panAction:(UIPanGestureRecognizer *)sender {
-  
-  NSLog(@"pan action");
-}
-
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -96,15 +51,24 @@ static NSString * const reuseIdentifier = @"TemplateCell";
 #pragma mark <UICollectionViewDelegate>
 
 
+#pragma mark -
+#pragma mark - CUResponsegestureProtocol
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)shouldResponseToGestureLocation:(CGPoint)location {
+  
+  if ([self.collectionView indexPathForItemAtPoint:location] != nil) {
+    _selectedPoint = CGPointMake(location.x + self.collectionView.contentOffset.x, location.y + self.collectionView.contentOffset.y);
+    return YES;
+  } else {
+    return NO;
+  }
 }
-*/
+
+- (UIView *)getResponseViewSnapShot {
+  
+  NSIndexPath *indexPath = [_collectionView indexPathForItemAtPoint:_selectedPoint];
+  UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
+  return [cell snapshotViewAfterScreenUpdates:NO];
+}
 
 @end

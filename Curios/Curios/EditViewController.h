@@ -11,3 +11,11 @@
 @interface EditViewController : UIViewController
 
 @end
+
+@interface FakeCellView : UIView
+
+@property(nonatomic, strong) NSArray *dataArray;
+
++ (instancetype) fakecellViewWith:(UIView *)uiview;
+
+@end
