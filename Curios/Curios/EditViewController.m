@@ -198,20 +198,14 @@ typedef void(^animationDidCompleted)();
           
           _fakeTemplateView.center = location;
           
-          if (CGRectContainsPoint(_editCollectionView.frame, location) && count<= 21) {
+          if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUSmallLayout class]]) {
             
-            count+= 1;
-            [_editCollectionView performBatchUpdates:^{
-
-              NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
-              [_editCollectionView insertItemsAtIndexPaths:@[indexPath]];
-            } completion:nil];
-          } else {
-            
+            CGPoint locationInEditBounds = [sender locationInView:_editCollectionView];
+            [((CUSmallLayout *)_editCollectionView.collectionViewLayout) responseToPointMoveInIfNeed:CGRectContainsPoint(_editCollectionView.frame, location) Point:locationInEditBounds];
           }
+          
+          
         }
-        
-        
       }
         break;
         

@@ -10,6 +10,8 @@
 
 @interface CUSmallLayout : UICollectionViewFlowLayout
 
+- (void)responseToPointMoveInIfNeed:(BOOL)moveIn Point:(CGPoint)pointInBounds;
+
 @end
 
 
@@ -17,5 +19,6 @@
 @property(nonatomic) NSIndexPath *indexPath;
 
 + (instancetype)fakeViewWithCell:(UICollectionViewCell *)cell;
+
 
 @end

@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Curios/CUSmallLayout.m"
-            timestampString = "448885912.922054"
+            timestampString = "449028393.477857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
             landmarkName = "-gestureRecognizerShouldBegin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Curios/CUSmallLayout.m"
-            timestampString = "448885912.922054"
+            timestampString = "449028393.477857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "-continueScroll"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Curios/CUSmallLayout.m"
-            timestampString = "448885912.922054"
+            timestampString = "449028393.477857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "-calcscrollRateWithSpeed:percentage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,28 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Curios/CUSmallLayout.m"
-            timestampString = "448885879.956144"
+            timestampString = "449028393.477857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-calcscrollRateWithSpeed:percentage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Curios/CUSmallLayout.m"
-            timestampString = "448973854.54111"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "-panHandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

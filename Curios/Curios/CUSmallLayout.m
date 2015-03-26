@@ -40,6 +40,10 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   CUSmallLayoutScrollDirection _continuousScrollDirection;
   CGPoint _panTranslation;
   CGPoint _fakeCellCenter;
+  
+  BOOL _pointMoveIn;
+  NSIndexPath *_placeholderIndexPath;
+
 }
 
 - (instancetype)init
@@ -62,6 +66,9 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor, insetBottom, insetHor);
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _scale = smallHeight / largeWidth;
+    
+    _pointMoveIn = NO;
+    _placeholderIndexPath = nil;
     
     [self configObserver];
   }
@@ -260,6 +267,59 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     }
   }
 }
+
+#pragma mark -
+#pragma mark - should response 
+
+- (void)responseToPointMoveInIfNeed:(BOOL)moveIn Point:(CGPoint)pointInBounds{
+  
+  if (moveIn) {
+    
+    if (!_pointMoveIn) {
+      _pointMoveIn = YES;
+      
+      NSLog(@"move in");
+      if (!_placeholderIndexPath) {
+        
+        // calculator the moveInIndexPath and add placeholder cell
+        _placeholderIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        NSLog(@"add _placeholder cell");
+      }
+    }
+    
+    [self responseToPointMove:pointInBounds];
+    
+  } else { //move out or out of here
+    
+    if (_pointMoveIn) {
+      _pointMoveIn = NO;
+      NSLog(@"move out");
+      if (_placeholderIndexPath) {
+        //remove placeholder cell
+        NSLog(@"remove _placeholder cell");
+        
+        _placeholderIndexPath = nil;
+      }
+      
+    }
+    
+  }
+}
+
+
+- (void)responseToPointMove:(CGPoint)point {
+  
+  
+  if (!_placeholderIndexPath) {
+    return;
+  }
+  
+  NSLog(@"responseToPointMove");
+  
+  
+}
+
+
 
 - (CGFloat)calcTrigerPercentage {
   if (!_cellFakeView) {
