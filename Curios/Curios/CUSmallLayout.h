@@ -11,7 +11,7 @@
 @interface CUSmallLayout : UICollectionViewFlowLayout
 
 - (void)responseToPointMoveInIfNeed:(BOOL)moveIn Point:(CGPoint)pointInBounds;
-
+- (void)responsetoPointMoveEnd;
 @end
 
 

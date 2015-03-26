@@ -116,6 +116,7 @@ typedef void(^animationDidCompleted)();
       if (!transitioning) { // 未处于过渡态时
         transitioning = YES;
         isNormalLayout = [_editCollectionView.collectionViewLayout isKindOfClass:[CUNormalLayout class]];
+        
         [_editCollectionView startInteractiveTransitionToCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout completion:^(BOOL completed, BOOL finished) {
           
           if (finished) {
@@ -203,8 +204,6 @@ typedef void(^animationDidCompleted)();
             CGPoint locationInEditBounds = [sender locationInView:_editCollectionView];
             [((CUSmallLayout *)_editCollectionView.collectionViewLayout) responseToPointMoveInIfNeed:CGRectContainsPoint(_editCollectionView.frame, location) Point:locationInEditBounds];
           }
-          
-          
         }
       }
         break;
@@ -214,6 +213,14 @@ typedef void(^animationDidCompleted)();
         
         [_fakeTemplateView removeFromSuperview];
         _fakeTemplateView = nil;
+        
+        if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUSmallLayout class]]) {
+          
+          if (CGRectContainsPoint(_editCollectionView.frame, location)) {
+            [((CUSmallLayout *)_editCollectionView.collectionViewLayout) responsetoPointMoveEnd];
+          }
+          
+        }
       }
         break;
       default:
