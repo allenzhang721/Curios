@@ -33,6 +33,7 @@
 		2CD9C6251A89EC8800BCD69B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9C6241A89EC8800BCD69B /* Images.xcassets */; };
 		2CD9C6281A89EC8800BCD69B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9C6261A89EC8800BCD69B /* LaunchScreen.xib */; };
 		2CD9C6341A89EC8800BCD69B /* CuriosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6331A89EC8800BCD69B /* CuriosTests.m */; };
+		2CEFF7951AC4E4B100EA0C95 /* CUEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */; };
 		2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56BC1AB684C00068313C /* EditViewController.m */; };
 		2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56C01AB68A450068313C /* CUNormalLayout.m */; };
 		2CFA56C81AB68EAD0068313C /* CUPageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56C71AB68EAD0068313C /* CUPageNode.m */; };
@@ -101,6 +102,9 @@
 		2CD9C62D1A89EC8800BCD69B /* CuriosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuriosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD9C6321A89EC8800BCD69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CD9C6331A89EC8800BCD69B /* CuriosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CuriosTests.m; sourceTree = "<group>"; };
+		2CEFF7931AC4E4B100EA0C95 /* CUEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUEditCell.h; sourceTree = "<group>"; };
+		2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUEditCell.m; sourceTree = "<group>"; };
+		2CEFF7961AC4F0DD00EA0C95 /* CUCollectionViewLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUCollectionViewLayoutDelegate.h; sourceTree = "<group>"; };
 		2CFA56BB1AB684C00068313C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		2CFA56BC1AB684C00068313C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		2CFA56BF1AB68A450068313C /* CUNormalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUNormalLayout.h; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			children = (
 				2C217EB31A9D60EA00A6EB87 /* ReactView.h */,
 				2CCA933D1AC2BFBB00B38B14 /* CUResponsegestureProtocol.h */,
+				2CEFF7961AC4F0DD00EA0C95 /* CUCollectionViewLayoutDelegate.h */,
 			);
 			name = Protocol;
 			sourceTree = "<group>";
@@ -184,6 +189,8 @@
 				2C217EAD1A9D603D00A6EB87 /* CUPageView.m */,
 				2C217EAF1A9D605500A6EB87 /* CUConView.h */,
 				2C217EB01A9D605500A6EB87 /* CUConView.m */,
+				2CEFF7931AC4E4B100EA0C95 /* CUEditCell.h */,
+				2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -458,6 +465,7 @@
 				2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */,
 				2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */,
 				2C926B2B1AC29C3900B5D061 /* CUTemplateNaviController.m in Sources */,
+				2CEFF7951AC4E4B100EA0C95 /* CUEditCell.m in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
 				2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */,
 				2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */,

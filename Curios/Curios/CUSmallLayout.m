@@ -10,7 +10,7 @@
 
 static CGFloat const _goldenRatio = 0.618;
 static CGFloat const _minTopGap = 20.0f;
-static CGFloat const _itemSpacing = 20;
+//static CGFloat const _itemSpacing = 20;
 static CGFloat const _pannelOffset = 44.0;
 static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
 static CGFloat const _largeLeadingGap = 30;
@@ -20,8 +20,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   CUSmallLayoutScrollDirectionToStay,
   CUSmallLayoutScrollDirectionToTop,
   CUSmallLayoutScrollDirectionToEnd
-  
-  
 };
 
 @interface CUSmallLayout ()<UIGestureRecognizerDelegate>
@@ -29,8 +27,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
 @end
 
 @implementation CUSmallLayout {
-  
-  CUCellFakeView *_cellFakeView;
   
   CGSize _collectionViewSize;
   CGFloat _scale;
@@ -41,36 +37,35 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   CGPoint _panTranslation;
   CGPoint _fakeCellCenter;
   
-  BOOL _pointMoveIn;
   NSIndexPath *_placeholderIndexPath;
-
+  BOOL _pointMoveIn;
+  
+  BOOL _reordering;
+  
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
   self = [super init];
   if (self) {
     
     _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
     CGFloat smallHeight = floorf(_collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2);
     CGFloat smallWidth = smallHeight * _aspectRatio;
-    
     CGFloat largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
-    
     CGFloat insetTop = _minTopGap;
     CGFloat insetHor = (_collectionViewSize.width - smallWidth) / 2;
     CGFloat insetBottom = floorf(_collectionViewSize.height - _minTopGap  - smallHeight);
-    
+    _scale = smallHeight / largeWidth;
     
     self.itemSize = CGSizeMake(smallWidth, smallHeight);
     self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor, insetBottom, insetHor);
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    _scale = smallHeight / largeWidth;
     
     _pointMoveIn = NO;
+    _reordering = NO;
     _placeholderIndexPath = nil;
     
-    [self configObserver];
+    //    [self configObserver];
   }
   return self;
 }
@@ -80,7 +75,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   return YES;
 }
 
-
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
   
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
@@ -88,12 +82,12 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   for (UICollectionViewLayoutAttributes *attribute in attributes) {
     
     if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
-//      if (_cellFakeView && _cellFakeView.indexPath == attribute.indexPath) {
-//        
-//        attribute.alpha = 0;
-//      }
+      //      if (_cellFakeView && _cellFakeView.indexPath == attribute.indexPath) {
+      //
+      //        attribute.alpha = 0;
+      //      }
       if (_placeholderIndexPath == attribute.indexPath) {
-
+        
         attribute.alpha = 0;
       }
     }
@@ -137,142 +131,49 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
 }
 
 - (void)invalidateDisplayLink {
-
+  
   _continuousScrollDirection = CUSmallLayoutScrollDirectionToStay;
   [_displayLink invalidate];
   _displayLink = nil;
 }
 
-- (void)configObserver {
+#pragma mark -
+#pragma mark - reorder
+- (BOOL)shouldResponseToGestureLocation:(CGPoint)location {
   
-  [self addObserver:self forKeyPath:@"collectionView" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  
-  if ([keyPath isEqualToString:@"collectionView"]) {
-    if (change[NSKeyValueChangeNewKey] != nil && ![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-      [self addGestures];
-    } else {
-      [self removeGestures];
-    }
-  } else {
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-  }
-}
-
-- (void)addGestures {
-  if (!self.collectionView) {
-    return;
-  }
-  
-  if (_longpress && _pan) {
-    return;
-  }
-  
-  _longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressHandler:)];
-  _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
-  
-  _longpress.delegate = self;
-  _pan.delegate = self;
-  _pan.maximumNumberOfTouches = 1;
-  NSArray *gestures = self.collectionView.gestureRecognizers;
-  [gestures enumerateObjectsUsingBlock:^(UIGestureRecognizer* gesture, NSUInteger idx, BOOL *stop) {
-    
-    if ([gesture isKindOfClass: [UILongPressGestureRecognizer class]]) {
-      [gesture requireGestureRecognizerToFail:_longpress];
-    }
-  }];
-  
-  [self.collectionView addGestureRecognizer:_longpress];
-  [self.collectionView addGestureRecognizer:_pan];
-}
-
-- (void)removeGestures {
-  if (_longpress && _pan) {
-    [_longpress removeTarget:self action:@selector(longPressHandler:)];
-    [_pan removeTarget:self action:@selector(panHandler:)];
-    _longpress = nil;
-    _pan = nil;
-    
-  }
-}
-
-- (void)longPressHandler:(UILongPressGestureRecognizer *)sender {
-  
-//  NSLog(@"longpress");
-  CGPoint location = [sender locationInView:self.collectionView];
   NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
   
-  if (_cellFakeView != nil) {
-    indexPath = _cellFakeView.indexPath;
+  if (indexPath != nil) {
+    _placeholderIndexPath = indexPath;
+    _reordering = YES;
+    return YES;
+  } else {
+    _reordering = NO;
+    return NO;
   }
-  
-  if (indexPath == nil) {
-    return;
-  }
-  
-  switch (sender.state) {
-    case UIGestureRecognizerStateBegan: {
-      self.collectionView.scrollsToTop = NO;
-      
-      UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-      _cellFakeView = [CUCellFakeView fakeViewWithCell:cell];
-      _cellFakeView.indexPath = indexPath;
-      _cellFakeView.center = location;
-      _fakeCellCenter = _cellFakeView.center;
-      [self.collectionView addSubview:_cellFakeView];
-      [self invalidateLayout];
-    }
-      
-      break;
-      
-      case UIGestureRecognizerStateEnded:
-    case UIGestureRecognizerStateFailed: {
-      if (!_cellFakeView) {
-        break;
-      }
-      
-      self.collectionView.scrollsToTop = YES;
-      
-      _fakeCellCenter = CGPointZero;
-      [self invalidateDisplayLink];
-      [_cellFakeView removeFromSuperview];
-      _cellFakeView = nil;
-      [self invalidateLayout];
-    }
-      
-    default:
-      break;
-  }
-
 }
 
-- (void)panHandler:(UIPanGestureRecognizer *)sender {
-  _panTranslation = [sender translationInView:self.collectionView];
-  if (_cellFakeView != nil && !CGPointEqualToPoint(_panTranslation, CGPointZero)) {
-    
-    switch (sender.state) {
-      case UIGestureRecognizerStateChanged: {
-       CGFloat x = _panTranslation.x + _fakeCellCenter.x;
-       CGFloat y = _panTranslation.y + _fakeCellCenter.y;
-       CGPoint center = CGPointMake(x, y);
-        _cellFakeView.center = center;
-       
-        
-        [self beginScrollIfNeeded];
-        [self moveItemIfNeeded];
-      }
-        break;
-        
-      default:
-        break;
-    }
+- (UIView *)getResponseViewSnapShot {
+  
+  if (!_placeholderIndexPath) {
+    return nil;
+  }
+  UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:_placeholderIndexPath];
+  
+  return [cell snapshotViewAfterScreenUpdates:false];
+}
+
+- (NSIndexPath *)getSelectedIndexPath {
+  
+  if (_placeholderIndexPath) {
+    return _placeholderIndexPath;
+  } else {
+    return nil;
   }
 }
 
 #pragma mark -
-#pragma mark - should response 
+#pragma mark - should response
 
 - (void)responseToPointMoveInIfNeed:(BOOL)moveIn Point:(CGPoint)point{
   
@@ -281,17 +182,18 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     if (!_pointMoveIn) {
       _pointMoveIn = YES;
       
-      NSLog(@"move in");
       if (!_placeholderIndexPath) {
         
-        // calculator the moveInIndexPath and add placeholder cell
-        
         _placeholderIndexPath = [self getIndexPathByPointInBounds:point];
-        NSLog(@"%@", _placeholderIndexPath);
-        
         _fakeCellCenter = point;
         
-        NSLog(@"add _placeholder cell");
+        if ([_delegate respondsToSelector:@selector(didMoveInAtIndexPath:)]) {
+          [_delegate didMoveInAtIndexPath:_placeholderIndexPath];
+          [self.collectionView performBatchUpdates:^{
+            
+            [self.collectionView insertItemsAtIndexPaths:@[_placeholderIndexPath]];
+          } completion:nil];
+        }
       }
     }
     
@@ -301,13 +203,10 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     
     if (_pointMoveIn) {
       _pointMoveIn = NO;
-      NSLog(@"move out");
-      
-      [self responsetoPointMoveEnd];
+      [self responsetoPointMoveOut];
     }
   }
 }
-
 
 - (void)responseToPointMove:(CGPoint)point {
   
@@ -316,22 +215,55 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   }
   
   _fakeCellCenter = point;
-  
-  NSLog(@"%.2f",point.x);
-  
   [self autoScrollIfNeed:_fakeCellCenter];
   [self changeItemIfNeed];
+}
+
+- (void)responsetoPointMoveOut {
+  
+  if (_placeholderIndexPath) {
+    NSLog(@"remove _placeholder cell");
+    
+    if ([_delegate respondsToSelector:@selector(willMoveOutAtIndexPath:)]) {
+      [_delegate willMoveOutAtIndexPath:_placeholderIndexPath];
+      [self.collectionView performBatchUpdates:^{
+        
+        [self.collectionView deleteItemsAtIndexPaths:@[_placeholderIndexPath]];
+      } completion:^(BOOL finished) {
+        
+        if (finished) {
+          if ([_delegate respondsToSelector:@selector(didMoveOutAtIndexPath:)]) {
+            [_delegate didMoveOutAtIndexPath:_placeholderIndexPath];
+          }
+          
+          self.collectionView.scrollsToTop = YES;
+          _fakeCellCenter = CGPointZero;
+          _placeholderIndexPath = nil;
+          [self invalidateDisplayLink];
+          [self invalidateLayout];
+          
+          [self.collectionView performBatchUpdates:^{
+            
+          } completion:nil];
+        }
+      }];
+    }
+    
+  }
 }
 
 - (void)responsetoPointMoveEnd {
   
   if (_placeholderIndexPath) {
-    //remove placeholder cell
-    NSLog(@"remove _placeholder cell");
+    if ([_delegate respondsToSelector:@selector(didMoveEndAtIndexPath:)]) {
+      [_delegate didMoveEndAtIndexPath:_placeholderIndexPath];
+    }
+    
     
     self.collectionView.scrollsToTop = YES;
     _fakeCellCenter = CGPointZero;
     _placeholderIndexPath = nil;
+    _reordering = NO;
     [self invalidateDisplayLink];
     [self invalidateLayout];
     
@@ -369,7 +301,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     return;
   }
   
-  // TODO: 03.24.2015, calculator flow percentage and scroll rate
   CGFloat percentage = 0.5;
   CGFloat scrollRate = [self calcscrollRateIfNeedWithSpeed:10.0 percentage:percentage];
   
@@ -392,8 +323,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   
   [self.collectionView performBatchUpdates:^{
     _fakeCellCenter.x += scrollRate;
-//    CGPoint center = CGPointMake(_fakeCellCenter.x + _panTranslation.x, _cellFakeView.center.y);
-//    _cellFakeView.center = center;
     CGPoint contentOffset = CGPointMake(self.collectionView.contentOffset.x + scrollRate, self.collectionView.contentOffset.y);
     self.collectionView.contentOffset = contentOffset;
     
@@ -429,7 +358,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   return value * MAX(0, MIN(1.0, per));
 }
 
-
 - (void)changeItemIfNeed {
   
   NSIndexPath *fromIndexPath;
@@ -450,268 +378,70 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   
   //TODO: Delegate can move item
   
-  
-  [self.collectionView performBatchUpdates:^{
-    _placeholderIndexPath = toIndexPath;
+  if ([_delegate respondsToSelector:@selector(didChangeFromIndexPath:toIndexPath:)]) {
+    [_delegate didChangeFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
     
-    [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
-    [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
+    [self.collectionView performBatchUpdates:^{
+      _placeholderIndexPath = toIndexPath;
+      
+      [self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+//      [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
+//      [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
+      
+    } completion:nil];
     
-  } completion:nil];
-  
+  }
 }
 
-
-- (NSIndexPath *)getIndexPathByPointInBounds:(CGPoint)point {
   
-  CGPoint offset = self.collectionView.contentOffset;
-  CGSize contentSize = self.collectionView.contentSize;
-  CGFloat top = self.sectionInset.top;
-  CGFloat leftEdge = self.sectionInset.left;
-  CGFloat rightEdge = contentSize.width - self.sectionInset.right;
-  CGFloat x = point.x;
-  
-  NSArray *visualCells = self.collectionView.visibleCells;
-  NSIndexPath *placeholderIndexPath;
-
-  if (visualCells.count > 0) {
-    if (x < leftEdge) {
-      
-      placeholderIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    } else if (x > rightEdge) {
-      
-      UICollectionViewCell *lastCell = (UICollectionViewCell *)[visualCells lastObject];
-      NSIndexPath *indexPath = [self.collectionView indexPathForCell:lastCell];
-      placeholderIndexPath = [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:0];
-      
-    } else {
-      
-      BOOL find = NO;
-      
-      for (UICollectionViewCell *cell in visualCells) {
+  - (NSIndexPath *)getIndexPathByPointInBounds:(CGPoint)point {
+    
+    CGPoint offset = self.collectionView.contentOffset;
+    CGSize contentSize = self.collectionView.contentSize;
+    CGFloat top = self.sectionInset.top;
+    CGFloat leftEdge = self.sectionInset.left;
+    CGFloat rightEdge = contentSize.width - self.sectionInset.right;
+    CGFloat x = point.x;
+    
+    NSArray *visualCells = self.collectionView.visibleCells;
+    NSIndexPath *placeholderIndexPath;
+    
+    if (visualCells.count > 0) {
+      if (x < leftEdge) {
         
-        if (cell.center.x > x) {
-          find = YES;
-          placeholderIndexPath = [self.collectionView indexPathForCell:cell];
-          break;
-        }
-      }
-      
-      if (!find) {
+        placeholderIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+      } else if (x > rightEdge) {
+        
         UICollectionViewCell *lastCell = (UICollectionViewCell *)[visualCells lastObject];
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:lastCell];
         placeholderIndexPath = [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:0];
+        
+      } else {
+        
+        BOOL find = NO;
+        
+        for (UICollectionViewCell *cell in visualCells) {
+          
+          if (cell.center.x > x) {
+            find = YES;
+            placeholderIndexPath = [self.collectionView indexPathForCell:cell];
+            break;
+          }
+        }
+        
+        if (!find) {
+          UICollectionViewCell *lastCell = (UICollectionViewCell *)[visualCells lastObject];
+          NSIndexPath *indexPath = [self.collectionView indexPathForCell:lastCell];
+          placeholderIndexPath = [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:0];
+        }
       }
-    }
-    
-  } else {
-    
-    placeholderIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-  }
-  
-  return placeholderIndexPath;
-}
-
-
-
-
-
-- (CGFloat)calcTrigerPercentage {
-  if (!_cellFakeView) {
-    return 0;
-  }
-  
-  return 0.5;
-  
-}
-
-- (CGFloat)calcscrollRateWithSpeed:(CGFloat)speed percentage:(CGFloat)per {
-  if (!_cellFakeView) {
-    return 0;
-  }
-  CGFloat value = 0.0;
-  
-  switch (_continuousScrollDirection) {
-    case CUSmallLayoutScrollDirectionToTop:
-      value = -speed;
       
-      break;
-      
-      case CUSmallLayoutScrollDirectionToEnd:
-      value = speed;
-      break;
-      
-      case CUSmallLayoutScrollDirectionToStay:
-      value = 0;
-      break;
-    default:
-      value = 0;
-      break;
-  }
-  
-  return value * MAX(0, MIN(1.0, per));
-}
-
-- (void)continueScroll {
-  
-  if (!_cellFakeView) {
-    return;
-  }
-  
-  // TODO: 03.24.2015, calculator flow percentage and scroll rate
-  CGFloat percentage = [self calcTrigerPercentage];
-  CGFloat scrollRate = [self calcscrollRateWithSpeed:10.0 percentage:percentage];
-  
-  CGFloat offsetTop = self.collectionView.contentOffset.x;
-  CGFloat insetTop = 50;
-  CGFloat insetEnd = 50;
-  CGFloat length = CGRectGetWidth(self.collectionView.bounds);
-  CGFloat contentLength = self.collectionView.contentSize.width;
-  
-  if (contentLength + insetTop + insetEnd <= length) {
-    return;
-  }
-  
-  if (offsetTop + scrollRate <= -insetTop) {
-    
-    scrollRate = -insetTop - offsetTop;
-  } else if (offsetTop + scrollRate >= contentLength + insetEnd - length) {
-    scrollRate = contentLength + insetEnd - length - offsetTop;
-  }
-  
-  [self.collectionView performBatchUpdates:^{
-    _fakeCellCenter.x += scrollRate;
-    CGPoint center = CGPointMake(_fakeCellCenter.x + _panTranslation.x, _cellFakeView.center.y);
-    _cellFakeView.center = center;
-    CGPoint contentOffset = CGPointMake(self.collectionView.contentOffset.x + scrollRate, self.collectionView.contentOffset.y);
-    self.collectionView.contentOffset = contentOffset;
-    
-  } completion:nil];
-  
-  [self moveItemIfNeeded];
-}
-
-- (void)beginScrollIfNeeded {
-  if (_cellFakeView == nil) {
-    return;
-  }
-  
-  // just need a
-  
-  CGPoint offset = self.collectionView.contentOffset;
-  CGFloat insetTop = self.collectionView.contentInset.left;
-  CGFloat insetEnd = self.collectionView.contentInset.right;
-  CGFloat triggerInsetTop = 50.0;
-  CGFloat triggerInsetEnd = 50.0;
-//  CGFloat triggerPadding
-  CGFloat contentLength = CGRectGetWidth(self.collectionView.bounds);
-  CGFloat fakeCellTopEdge = CGRectGetMinX(_cellFakeView.frame);
-  CGFloat fakecellEndEdge = CGRectGetMaxX(_cellFakeView.frame);
-  
-  if (fakeCellTopEdge <= offset.x + triggerInsetTop) {
-    _continuousScrollDirection = CUSmallLayoutScrollDirectionToTop;
-    [self setupDisplayLink];
-  } else if (fakecellEndEdge >= offset.x + contentLength - triggerInsetEnd) {
-    _continuousScrollDirection = CUSmallLayoutScrollDirectionToEnd;
-    [self setupDisplayLink];
-  } else {
-    [self invalidateDisplayLink];
-  }
-  
-}
-
-- (void)moveItemIfNeeded {
-  
-  NSLog(@"_fakeCellCenter.x = %.2f", _fakeCellCenter.x);
-  
-  NSIndexPath *fromIndexPath;
-  NSIndexPath *toIndexPath;
-  if (_cellFakeView) {
-    
-    fromIndexPath = _cellFakeView.indexPath;
-    toIndexPath = [self.collectionView indexPathForItemAtPoint:_cellFakeView.center];
-  }
-  
-  if (fromIndexPath == nil || toIndexPath == nil) {
-    return;
-  }
-  
-  if (fromIndexPath == toIndexPath) {
-    return;
-  }
-  
-  //TODO: Delegate can move item
-  
-  
-  [self.collectionView performBatchUpdates:^{
-    _cellFakeView.indexPath = toIndexPath;
-    
-    [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
-    [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
-    
-  } completion:nil];
-  
-  
-  //TODO: Delegate did move item
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-  
-  if (gestureRecognizer == _longpress) {
-    if (self.collectionView.panGestureRecognizer.state != UIGestureRecognizerStatePossible && self.collectionView.panGestureRecognizer.state != UIGestureRecognizerStateFailed) {
-      return NO;
-    }
-  } else if (gestureRecognizer == _pan) {
-    if (_longpress.state == UIGestureRecognizerStatePossible || _longpress.state == UIGestureRecognizerStateFailed) {
-      return NO;
-    }
-  }
-  
-  return YES;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-  if (gestureRecognizer == _longpress) {
-    if (otherGestureRecognizer == _pan) {
-      return YES;
-    }
-  } else if (gestureRecognizer == _pan) {
-    if (otherGestureRecognizer == _longpress) {
-      return YES;
     } else {
-      return NO;
+      
+      placeholderIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     }
-  } else if (gestureRecognizer == self.collectionView.panGestureRecognizer) {
-    if (_longpress.state != UIGestureRecognizerStatePossible || _longpress.state != UIGestureRecognizerStateFailed) {
-      return NO;
-    }
+    
+    return placeholderIndexPath;
   }
   
-  return YES;
-}
-
-@end
-
-@implementation CUCellFakeView {
-  
-  __weak UICollectionViewCell *_cell;
-}
-
-+ (instancetype)fakeViewWithCell:(UICollectionViewCell *)cell {
-  
-  return [[CUCellFakeView alloc] initWithCell:cell];
-}
-
-- (instancetype)initWithCell:(UICollectionViewCell *)cell {
-  if (self = [super initWithFrame:cell.frame]) {
-    
-    _cell = cell;
-    
-    UIView *cellSnapshot = [cell snapshotViewAfterScreenUpdates:YES];
-    [self addSubview:cellSnapshot];
-  }
-  return self;
-}
-
-
-@end
+  @end

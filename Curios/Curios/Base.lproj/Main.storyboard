@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -55,7 +56,7 @@
                                 <gestureRecognizers/>
                                 <collectionViewLayout key="collectionViewLayout" id="y3k-Ja-we4" customClass="CUNormalLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="g6s-eE-Foc">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="g6s-eE-Foc" customClass="CUEditCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -65,22 +66,22 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A62-EK-dgJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="491"/>
                                                     <subviews>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mon-lv-oJ8">
-                                                            <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
-                                                        </switch>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My name is Emiaostein" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvb-zN-2D9">
-                                                            <rect key="frame" x="8" y="156" width="178" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfa-LQ-wLS">
+                                                            <rect key="frame" x="57" y="0.0" width="172" height="270"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="172" id="NUo-8P-JqN"/>
+                                                                <constraint firstAttribute="height" constant="270" id="YnO-St-4gM"/>
+                                                                <constraint firstAttribute="width" secondItem="cfa-LQ-wLS" secondAttribute="height" multiplier="86:135" id="p9s-li-kCo"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="Mon-lv-oJ8" firstAttribute="leading" secondItem="A62-EK-dgJ" secondAttribute="leading" id="Bb5-aU-GYV"/>
-                                                        <constraint firstItem="Lvb-zN-2D9" firstAttribute="top" secondItem="A62-EK-dgJ" secondAttribute="top" constant="156" id="CeK-fK-bdg"/>
-                                                        <constraint firstItem="Lvb-zN-2D9" firstAttribute="leading" secondItem="A62-EK-dgJ" secondAttribute="leadingMargin" id="SOi-nb-Xen"/>
-                                                        <constraint firstItem="Mon-lv-oJ8" firstAttribute="top" secondItem="A62-EK-dgJ" secondAttribute="top" id="zYQ-Lt-oHy"/>
+                                                        <constraint firstAttribute="centerX" secondItem="cfa-LQ-wLS" secondAttribute="centerX" id="PdG-FU-gJr"/>
+                                                        <constraint firstItem="cfa-LQ-wLS" firstAttribute="top" secondItem="A62-EK-dgJ" secondAttribute="top" id="ThH-ii-E5u"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -93,6 +94,9 @@
                                             <constraint firstAttribute="bottom" secondItem="A62-EK-dgJ" secondAttribute="bottom" id="hTC-xT-8Jo"/>
                                         </constraints>
                                         <size key="customSize" width="287" height="491"/>
+                                        <connections>
+                                            <outlet property="textLabel" destination="cfa-LQ-wLS" id="JH5-DK-xNQ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

@@ -16,5 +16,6 @@
 
 - (BOOL)shouldResponseToGestureLocation:(CGPoint)location;
 - (UIView *)getResponseViewSnapShot;
+- (NSIndexPath *)getSelectedIndexPath;
 
 @end

@@ -14,6 +14,7 @@
 #import "CUTemplateNaviController.h"
 #import "CUTemplateViewController.h"
 #import "CUSubTemplateViewController.h"
+#import "CUEditCell.h"
 #import <Masonry.h>
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <POP/POP.h>
@@ -21,25 +22,32 @@
 
 typedef void(^animationDidCompleted)();
 
-@interface EditViewController ()<UICollectionViewDataSource, UICollectionViewDelegate> {
+@interface EditViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, CUCollectionViewLayoutDelegate> {
   
+  //Object
   CUSmallLayout *_smallLayout;
   CUNormalLayout *_normalLayout;
   CUTransitionLayout *_transitionLayout;
+  CUTemplateNaviController *_templateNaviVC;
+  FakeCellView *_fakeTemplateView;
+  
+  //call back
   animationDidCompleted _animationCompletedBlock;
   
+  //state
   BOOL isNormalLayout;
   BOOL transitioning;
   BOOL transitonFishing;
   BOOL animationing;
   BOOL _shouldResponseLongPress;
-  
-  CGFloat _targetY;
+
+  //Calculator Properties
   CGFloat oldTotalProgress;
-  NSUInteger count;
+  CGFloat _targetY;
   
-  CUTemplateNaviController *_templateNaviVC;
-  FakeCellView *_fakeTemplateView;
+  //data
+  NSMutableArray *_dataArray;
+  
 }
 
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
@@ -57,7 +65,11 @@ typedef void(^animationDidCompleted)();
   
   _shouldResponseLongPress = NO;
 
-  count = 20;
+  _dataArray = [@[] mutableCopy];
+  for (int i = 0; i < 20; i++) {
+    [_dataArray addObject:[NSString stringWithFormat:@"%@",@(i)]];
+  }
+  
   [self setup];
 }
 
@@ -65,6 +77,7 @@ typedef void(^animationDidCompleted)();
 - (void)setup {
   
   _smallLayout = [[CUSmallLayout alloc] init];
+  _smallLayout.delegate = self;
   _normalLayout = [[CUNormalLayout alloc] init];
   [_editCollectionView setCollectionViewLayout:_normalLayout];
   
@@ -80,7 +93,6 @@ typedef void(^animationDidCompleted)();
 - (void)setupTemplateController {
   
   UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.view.bounds) * (1 - 0.618), 0);
-  
   UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
   CUTemplateNaviController *templateNavVC = [main instantiateViewControllerWithIdentifier:@"TemplateController"];
   
@@ -104,7 +116,6 @@ typedef void(^animationDidCompleted)();
     return;
   }
   
-  
   CGPoint location = [sender locationInView: self.view];
   CGPoint transition = [sender translationInView:self.view];
   CGFloat progress = ChangeProgress(transition.y, location.y, _targetY);
@@ -120,16 +131,15 @@ typedef void(^animationDidCompleted)();
         [_editCollectionView startInteractiveTransitionToCollectionViewLayout:isNormalLayout ? _smallLayout : _normalLayout completion:^(BOOL completed, BOOL finished) {
           
           if (finished) {
-            NSLog(@"finished");
+//            NSLog(@"finished");
             transitioning = NO;
             transitonFishing = YES;
           }
           if (completed) {
-            NSLog(@"complete");
+//            NSLog(@"complete");
             transitioning = NO;
             transitonFishing = YES;
           }
-          
         }];
       }
     }
@@ -177,7 +187,6 @@ typedef void(^animationDidCompleted)();
   CGPoint location = [sender locationInView:self.view];
   if (_shouldResponseLongPress) {
     
-    
     switch (sender.state) {
       case UIGestureRecognizerStateBegan: {
         CGPoint location = [sender locationInView:_templateNaviVC.view];
@@ -186,9 +195,26 @@ typedef void(^animationDidCompleted)();
           NSLog(@"begain longpress");
           UIView *snapshot = [_templateNaviVC getResponseViewSnapShot];
           _fakeTemplateView = [FakeCellView fakecellViewWith:snapshot];
+          _fakeTemplateView.dataArray = @[@"insertX", @"insertY"];
+          _fakeTemplateView.seletedItem = _fakeTemplateView.dataArray[0];
           _fakeTemplateView.center = location;
           [self.view addSubview:_fakeTemplateView];
           
+        } else if (CGRectContainsPoint(_editCollectionView.frame, location)) {
+          CGPoint Inlocation = [sender locationInView:_editCollectionView];
+          if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUSmallLayout class]]) {
+            if ([_smallLayout shouldResponseToGestureLocation:Inlocation]) {
+              
+              NSLog(@"begain longpress");
+              UIView *snapshot = [_smallLayout getResponseViewSnapShot];
+              _fakeTemplateView = [FakeCellView fakecellViewWith:snapshot];
+              _fakeTemplateView.center = location;
+              _fakeTemplateView.dataArray = @[[_dataArray objectAtIndex:[_smallLayout getSelectedIndexPath].item]];
+              _fakeTemplateView.seletedItem = _fakeTemplateView.dataArray[0];
+              [self.view addSubview:_fakeTemplateView];
+            }
+            
+          }
         }
       }
         break;
@@ -211,26 +237,23 @@ typedef void(^animationDidCompleted)();
       case UIGestureRecognizerStateFailed:
       case UIGestureRecognizerStateEnded: {
         
-        [_fakeTemplateView removeFromSuperview];
-        _fakeTemplateView = nil;
+        
         
         if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUSmallLayout class]]) {
           
           if (CGRectContainsPoint(_editCollectionView.frame, location)) {
             [((CUSmallLayout *)_editCollectionView.collectionViewLayout) responsetoPointMoveEnd];
           }
-          
         }
+        
+        [_fakeTemplateView removeFromSuperview];
+        _fakeTemplateView = nil;
       }
         break;
       default:
         break;
     }
-    
-//    NSLog(@"longpress");
   }
-  
-  
 }
 
 
@@ -306,16 +329,53 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
 }
 
 #pragma mark -
+#pragma mark - CUdelegate
+- (void)didMoveInAtIndexPath:(NSIndexPath *)indexPath {
+  NSLog(@"moveIn = %@", indexPath);
+  [_dataArray insertObject:_fakeTemplateView.seletedItem atIndex:indexPath.item];
+}
+
+- (void)didChangeFromIndexPath:(NSIndexPath *)fromindexPath toIndexPath:(NSIndexPath *)toindexPath {
+  
+  [_dataArray exchangeObjectAtIndex:fromindexPath.item withObjectAtIndex:toindexPath.item];
+}
+
+- (void)willMoveOutAtIndexPath:(NSIndexPath *)indexPath {
+  NSLog(@"moveOut = %@", indexPath);
+  [_dataArray removeObjectAtIndex:indexPath.item];
+}
+
+- (void)didMoveOutAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
+- (void)didMoveEndAtIndexPath:(NSIndexPath *)indexPath {
+  
+  if (_fakeTemplateView.dataArray.count > 1) {
+    for (int i = 1; i < _fakeTemplateView.dataArray.count; i++) {
+      [_editCollectionView performBatchUpdates:^{
+        
+        [_dataArray insertObject:_fakeTemplateView.dataArray[i] atIndex:(indexPath.item + i)];
+        [_editCollectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:(indexPath.item + 1) inSection:0]]];
+      } completion:^(BOOL finished) {
+      }];
+    }
+  }
+
+  }
+
+#pragma mark -
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return count;
+  return _dataArray.count;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-  UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+  CUEditCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
   cell.clipsToBounds = YES;
+  
+  cell.textLabel.text = _dataArray[indexPath.row];
   
   return cell;
 }
@@ -323,9 +383,6 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
 #pragma mark -
 #pragma mark - UICollectionView Delegate
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout {
-  
-  NSLog(@"fromLayout = %@ \n", fromLayout);
-  
   return [[CUTransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
 }
 

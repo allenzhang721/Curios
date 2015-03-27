@@ -60,16 +60,16 @@ CGFloat _minScale;
 //    UIView *containerView = cell.contentView.subviews[0];
 //    NSLog(@"%.2f", self.transitionProgress);
 //    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
-////      containerView.transform = CGAffineTransformMakeScale(1 - (1 - 0.4) * self.transitionProgress, 1 - (1 - 0.4) * self.transitionProgress);
+//      containerView.transform = CGAffineTransformMakeScale(1 - (1 - _minScale) * self.transitionProgress, 1 - (1 - _minScale) * self.transitionProgress);
 //    } else {
-////      containerView.transform = CGAffineTransformIdentity;
+//      containerView.transform = CGAffineTransformIdentity;
 //    }
-//    
-//////    containerView.transform = CGAffineTransformMakeScale(self.transitionProgress * _minScale, self.transitionProgress * _minScale);
-////    CGRect frame = containerView.frame;
-////    frame.origin = CGPointZero;
-////    containerView.frame =frame;
-//    
+    
+////    containerView.transform = CGAffineTransformMakeScale(self.transitionProgress * _minScale, self.transitionProgress * _minScale);
+//    CGRect frame = containerView.frame;
+//    frame.origin = CGPointZero;
+//    containerView.frame =frame;
+    
 //  }
   
   return attributes;
