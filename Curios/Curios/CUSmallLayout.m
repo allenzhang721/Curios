@@ -146,6 +146,10 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   if (indexPath != nil) {
     _placeholderIndexPath = indexPath;
     _reordering = YES;
+    [self.collectionView performBatchUpdates:^{
+      
+      
+    } completion:nil];
     return YES;
   } else {
     _reordering = NO;
