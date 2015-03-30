@@ -22,6 +22,11 @@ static CGFloat const _largeLeadingGap = 30;
 
 CGSize _collectionViewSize;
 CGFloat _minScale;
+  
+  CGFloat _smallHeight;
+  CGFloat _largeheight;
+  CGFloat _smallWidth;
+  CGFloat _largeWidth;
 }
 
 - (instancetype)initWithCurrentLayout:(UICollectionViewLayout *)currentLayout nextLayout:(UICollectionViewLayout *)newLayout {
@@ -31,14 +36,14 @@ CGFloat _minScale;
   if (self) {
     
     _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));;
-    CGFloat smallHeight = _collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2;
-    CGFloat smallWidth = smallHeight * _aspectRatio;
+    _smallHeight = floor(_collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2);
+//    CGFloat smallWidth = _smallHeight * _aspectRatio;
     
-    CGFloat largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
-    CGFloat largeHeight = largeWidth / _aspectRatio;
+    _largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
+    _largeheight = _largeWidth / _aspectRatio;
 
     
-    _minScale = smallHeight / largeHeight;
+    _minScale = _smallHeight / _largeheight;
     
   }
   return self;
@@ -54,26 +59,37 @@ CGFloat _minScale;
 //  NSLog(@"ss = %.2f", self.transitionProgress);
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-//  for (UICollectionViewLayoutAttributes *attri in attributes) {
-//    NSIndexPath *indexPath = attri.indexPath;
-//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//    UIView *containerView = cell.contentView.subviews[0];
-//    NSLog(@"%.2f", self.transitionProgress);
-//    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
-//      containerView.transform = CGAffineTransformMakeScale(1 - (1 - _minScale) * self.transitionProgress, 1 - (1 - _minScale) * self.transitionProgress);
-//    } else {
-//      containerView.transform = CGAffineTransformIdentity;
-//    }
+  for (UICollectionViewLayoutAttributes *attri in attributes) {
+    NSIndexPath *indexPath = attri.indexPath;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     
-////    containerView.transform = CGAffineTransformMakeScale(self.transitionProgress * _minScale, self.transitionProgress * _minScale);
-//    CGRect frame = containerView.frame;
-//    frame.origin = CGPointZero;
-//    containerView.frame =frame;
+
+    UIView *containerView = cell.contentView.subviews[0];
+    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
+      CGFloat scale = POPTransition(self.transitionProgress, 1, _minScale);
+      CGFloat XTransition = POPTransition(self.transitionProgress, 0, _largeWidth * 1.5 * (1 - scale));
+      CGFloat Ytransition = POPTransition(self.transitionProgress, 0, _largeheight * 1.5 * (1 - scale));
+//      NSLog(@"scale = %.2f, x = %.2f, y = %.2f",scale, XTransition, Ytransition);
+      containerView.transform = CGAffineTransformMakeScale(scale, scale);
+      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
+    } else {
+      CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
+      CGFloat XTransition = POPTransition(self.transitionProgress, _largeWidth * 1.5 * (1 - scale), 0);
+      CGFloat Ytransition = POPTransition(self.transitionProgress, _largeheight * 1.5 * (1 - scale), 0);
+      NSLog(@"scale = %.2f, x = %.2f, y = %.2f",scale, XTransition, Ytransition);
+      containerView.transform = CGAffineTransformMakeScale(scale, scale);
+      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
+
+    }
     
-//  }
+  }
   
   return attributes;
   
+}
+
+static inline CGFloat POPTransition(CGFloat progress, CGFloat startValue, CGFloat endValue) {
+  return startValue + (progress * (endValue - startValue));
 }
 
 @end

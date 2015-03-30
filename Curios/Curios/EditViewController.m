@@ -375,7 +375,7 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
   CUEditCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
   cell.clipsToBounds = YES;
   
-  cell.textLabel.text = _dataArray[indexPath.row];
+//  cell.textLabel.text = _dataArray[indexPath.row];
   
   return cell;
 }

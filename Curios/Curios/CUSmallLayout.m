@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   
   BOOL _reordering;
   
+  CGFloat _largeHeight;
+  CGFloat _largeWidth;
+  
 }
 
 - (instancetype)init {
@@ -51,11 +54,12 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
     CGFloat smallHeight = floorf(_collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2);
     CGFloat smallWidth = smallHeight * _aspectRatio;
-    CGFloat largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
+    _largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
+    _largeHeight = _largeWidth / _goldenRatio;
     CGFloat insetTop = _minTopGap;
     CGFloat insetHor = (_collectionViewSize.width - smallWidth) / 2;
     CGFloat insetBottom = floorf(_collectionViewSize.height - _minTopGap  - smallHeight);
-    _scale = smallHeight / largeWidth;
+    _scale = smallHeight / _largeHeight;
     
     self.itemSize = CGSizeMake(smallWidth, smallHeight);
     self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor, insetBottom, insetHor);
@@ -80,6 +84,13 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
   for (UICollectionViewLayoutAttributes *attribute in attributes) {
+    
+    NSIndexPath *indexPath = attribute.indexPath;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *view = cell.contentView.subviews[0];
+    view.transform = CGAffineTransformMakeScale(_scale, _scale);
+    view.transform = CGAffineTransformTranslate(view.transform, -_largeWidth * 1.5 * (1 - _scale) -5, - _largeHeight * 1.5 * (1 - _scale));
+    NSLog(@"scale = %.2f, x = %.2f, y = %.2f",_scale, _largeWidth * 1.5 * (1 - _scale), _largeHeight * 1.5 * (1 - _scale));
     
     if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
       //      if (_cellFakeView && _cellFakeView.indexPath == attribute.indexPath) {

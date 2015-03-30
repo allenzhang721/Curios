@@ -10,5 +10,4 @@
 
 @interface CUEditCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 @end
