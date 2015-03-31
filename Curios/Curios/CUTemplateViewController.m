@@ -71,4 +71,9 @@ static NSString * const reuseIdentifier = @"TemplateCell";
   return [cell snapshotViewAfterScreenUpdates:NO];
 }
 
+- (NSIndexPath *)getSelectedIndexPath {
+  
+  return nil;
+}
+
 @end

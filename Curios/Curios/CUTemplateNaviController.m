@@ -45,6 +45,11 @@
   }
 }
 
+- (NSIndexPath *)getSelectedIndexPath {
+  
+  return nil;
+}
+
 
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                    animationControllerForOperation:(UINavigationControllerOperation)operation
@@ -72,6 +77,8 @@
   
   return nil;
 }
+
+
 
 
 
