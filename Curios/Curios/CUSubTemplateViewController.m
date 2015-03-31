@@ -24,7 +24,6 @@ static NSString * const reuseIdentifier = @"SubTemplateCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
   self.collectionView.pagingEnabled = YES;
-    // Do any additional setup after loading the view.
 }
 
 - (IBAction)backAction:(UIButton *)sender {
@@ -36,7 +35,6 @@ static NSString * const reuseIdentifier = @"SubTemplateCell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-  //#warning Incomplete method implementation -- Return the number of sections
   return 1;
 }
 
@@ -48,7 +46,6 @@ static NSString * const reuseIdentifier = @"SubTemplateCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-  
   
   cell.backgroundColor = [UIColor darkGrayColor];
   
@@ -76,6 +73,10 @@ static NSString * const reuseIdentifier = @"SubTemplateCell";
   NSIndexPath *indexPath = [_collectionView indexPathForItemAtPoint:_selectedPoint];
   UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
   return [cell snapshotViewAfterScreenUpdates:NO];
+}
+
+- (NSIndexPath *)getSelectedIndexPath {
+  return nil;
 }
 
 @end

@@ -7,14 +7,16 @@
 //
 
 #import "CUEditCell.h"
+#import "CULayoutSpec.h"
 #import <Masonry.h>
 
 @implementation CUEditCell
 
 - (void)awakeFromNib {
   [super awakeFromNib];
-  
-  UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 410)];
+
+  CGSize aitemSize = itemSize(CULayoutStyleNormal);
+  UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, aitemSize.width, aitemSize.height)];
   containerView.backgroundColor = [UIColor purpleColor];
   [self.contentView addSubview:containerView];
   
@@ -28,8 +30,6 @@
 //  [label mas_makeConstraints:^(MASConstraintMaker *make) {
 //    make.edges.equalTo(containerView).with.insets(UIEdgeInsetsZero);
 //  }];
-  
-  
 }
 
 @end

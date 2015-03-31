@@ -19,7 +19,7 @@
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
   
-  CUSubTemplateViewController *fromVC = (CUSubTemplateViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//  CUSubTemplateViewController *fromVC = (CUSubTemplateViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
   CUTemplateViewController *toVC = (CUTemplateViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
   
   CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];

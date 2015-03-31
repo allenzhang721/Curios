@@ -7,13 +7,7 @@
 //
 
 #import "CUSmallLayout.h"
-
-static CGFloat const _goldenRatio = 0.618;
-static CGFloat const _minTopGap = 20.0f;
-//static CGFloat const _itemSpacing = 20;
-static CGFloat const _pannelOffset = 44.0;
-static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
-static CGFloat const _largeLeadingGap = 30;
+#import "CULayoutSpec.h"
 
 typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   
@@ -50,26 +44,18 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
 - (instancetype)init {
   self = [super init];
   if (self) {
+    CGSize normalLayoutItemSize = itemSize(CULayoutStyleNormal);
+    _largeWidth = normalLayoutItemSize.width;
+    _largeHeight = normalLayoutItemSize.height;
+    _scale = normalToSmallScale();
     
-    _collectionViewSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
-    CGFloat smallHeight = floorf(_collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2);
-    CGFloat smallWidth = smallHeight * _aspectRatio;
-    _largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
-    _largeHeight = _largeWidth / _goldenRatio;
-    CGFloat insetTop = _minTopGap;
-    CGFloat insetHor = (_collectionViewSize.width - smallWidth) / 2;
-    CGFloat insetBottom = floorf(_collectionViewSize.height - _minTopGap  - smallHeight);
-    _scale = smallHeight / _largeHeight;
-    
-    self.itemSize = CGSizeMake(smallWidth, smallHeight);
-    self.sectionInset = UIEdgeInsetsMake(insetTop, insetHor, insetBottom, insetHor);
+    self.itemSize = itemSize(CULayoutStyleSmall);
+    self.sectionInset = sectionInsets(CULayoutStyleSmall);
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     _pointMoveIn = NO;
     _reordering = NO;
     _placeholderIndexPath = nil;
-    
-    //    [self configObserver];
   }
   return self;
 }
@@ -89,14 +75,9 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *view = cell.contentView.subviews[0];
     view.transform = CGAffineTransformMakeScale(_scale, _scale);
-    view.transform = CGAffineTransformTranslate(view.transform, -_largeWidth * 1.5 * (1 - _scale) -5, - _largeHeight * 1.5 * (1 - _scale));
-    NSLog(@"scale = %.2f, x = %.2f, y = %.2f",_scale, _largeWidth * 1.5 * (1 - _scale), _largeHeight * 1.5 * (1 - _scale));
+    view.transform = CGAffineTransformTranslate(view.transform, -_largeWidth * 1.5 * (1 - _scale) - 5, - _largeHeight * 1.5 * (1 - _scale));
     
     if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
-      //      if (_cellFakeView && _cellFakeView.indexPath == attribute.indexPath) {
-      //
-      //        attribute.alpha = 0;
-      //      }
       if (_placeholderIndexPath == attribute.indexPath) {
         
         attribute.alpha = 0;
@@ -237,7 +218,7 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
 - (void)responsetoPointMoveOut {
   
   if (_placeholderIndexPath) {
-    NSLog(@"remove _placeholder cell");
+//    NSLog(@"remove _placeholder cell");
     
     if ([_delegate respondsToSelector:@selector(willMoveOutAtIndexPath:)]) {
       [_delegate willMoveOutAtIndexPath:_placeholderIndexPath];
@@ -288,12 +269,9 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   }
 }
 
-
 - (void)autoScrollIfNeed:(CGPoint)point {
   
   CGPoint offset = self.collectionView.contentOffset;
-  CGFloat insetTop = self.collectionView.contentInset.left;
-  CGFloat insetEnd = self.collectionView.contentInset.right;
   CGFloat triggerInsetTop = 100.0;
   CGFloat triggerInsetEnd = 100.0;
   CGFloat contentLength = CGRectGetWidth(self.collectionView.bounds);
@@ -391,7 +369,7 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     return;
   }
   
-  //TODO: Delegate can move item
+  //Delegate can move item
   
   if ([_delegate respondsToSelector:@selector(didChangeFromIndexPath:toIndexPath:)]) {
     [_delegate didChangeFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
@@ -400,8 +378,6 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
       _placeholderIndexPath = toIndexPath;
       
       [self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-//      [self.collectionView deleteItemsAtIndexPaths:@[fromIndexPath]];
-//      [self.collectionView insertItemsAtIndexPaths:@[toIndexPath]];
       
     } completion:nil];
     
@@ -411,9 +387,7 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
   
   - (NSIndexPath *)getIndexPathByPointInBounds:(CGPoint)point {
     
-    CGPoint offset = self.collectionView.contentOffset;
     CGSize contentSize = self.collectionView.contentSize;
-    CGFloat top = self.sectionInset.top;
     CGFloat leftEdge = self.sectionInset.left;
     CGFloat rightEdge = contentSize.width - self.sectionInset.right;
     CGFloat x = point.x;

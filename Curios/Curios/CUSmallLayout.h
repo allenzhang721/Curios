@@ -10,7 +10,7 @@
 #import "CUCollectionViewLayoutDelegate.h"
 #import "CUResponsegestureProtocol.h"
 
-@interface CUSmallLayout : UICollectionViewFlowLayout<CUCollectionViewLayoutDelegate,CUResponsegestureProtocol>
+@interface CUSmallLayout : UICollectionViewFlowLayout<CUResponsegestureProtocol>
 
 @property (nonatomic, weak)id<CUCollectionViewLayoutDelegate> delegate;
 

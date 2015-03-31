@@ -16,6 +16,7 @@
 		2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F171A8B483B0013FB88 /* CUComponentModel.m */; };
 		2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EAD1A9D603D00A6EB87 /* CUPageView.m */; };
 		2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EB01A9D605500A6EB87 /* CUConView.m */; };
+		2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AA461ACA198900E627ED /* CULayoutSpec.m */; };
 		2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */; };
 		2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816E1A918EEB00AEE5FF /* CUPageViewModel.m */; };
 		2C8A81731A91924100AEE5FF /* json in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81721A91924100AEE5FF /* json */; };
@@ -70,6 +71,8 @@
 		2C217EAF1A9D605500A6EB87 /* CUConView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConView.h; sourceTree = "<group>"; };
 		2C217EB01A9D605500A6EB87 /* CUConView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConView.m; sourceTree = "<group>"; };
 		2C217EB31A9D60EA00A6EB87 /* ReactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactView.h; sourceTree = "<group>"; };
+		2C80AA451ACA198900E627ED /* CULayoutSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CULayoutSpec.h; sourceTree = "<group>"; };
+		2C80AA461ACA198900E627ED /* CULayoutSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CULayoutSpec.m; sourceTree = "<group>"; };
 		2C8A816A1A918ED100AEE5FF /* CUConViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConViewModel.h; sourceTree = "<group>"; };
 		2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConViewModel.m; sourceTree = "<group>"; };
 		2C8A816D1A918EEB00AEE5FF /* CUPageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageViewModel.h; sourceTree = "<group>"; };
@@ -86,7 +89,6 @@
 		2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTransitionLayout.h; sourceTree = "<group>"; };
 		2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTransitionLayout.m; sourceTree = "<group>"; };
 		2CCA933D1AC2BFBB00B38B14 /* CUResponsegestureProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUResponsegestureProtocol.h; sourceTree = "<group>"; };
-		2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Curios-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateLayout.h; sourceTree = "<group>"; };
 		2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateLayout.m; sourceTree = "<group>"; };
 		2CD9C6141A89EC8800BCD69B /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,15 @@
 			name = Protocol;
 			sourceTree = "<group>";
 		};
+		2C80AA441ACA195A00E627ED /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2C80AA451ACA198900E627ED /* CULayoutSpec.h */,
+				2C80AA461ACA198900E627ED /* CULayoutSpec.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		2C8A81651A918E0700AEE5FF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +240,7 @@
 		2CD9C6161A89EC8800BCD69B /* Curios */ = {
 			isa = PBXGroup;
 			children = (
+				2C80AA441ACA195A00E627ED /* Util */,
 				2CFA56CB1AB692B60068313C /* bigMax.jpeg */,
 				2C926B2C1AC29C3F00B5D061 /* customTransition */,
 				2CFA56C21AB68AA30068313C /* Node */,
@@ -297,7 +309,6 @@
 				2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */,
 				2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */,
 				2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */,
-				2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -476,6 +487,7 @@
 				2CFA56CF1AB6CFEB0068313C /* CUSmallLayout.m in Sources */,
 				2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */,
 				2CD9C61A1A89EC8800BCD69B /* main.m in Sources */,
+				2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */,
 				2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */,
 				2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */,
 				2C215F151A8B48280013FB88 /* CUConModel.m in Sources */,
