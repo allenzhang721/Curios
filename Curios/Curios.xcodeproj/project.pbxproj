@@ -8,19 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2BCDC28BBCDD09EAE7F5B486 /* libPods-Curios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FCD396CE8829FEEFDB45EB /* libPods-Curios.a */; };
+		2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */; };
+		2C003C4A1ABFB3F400F27618 /* CUSubTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */; };
 		2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */; };
 		2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F111A8B480A0013FB88 /* CUPageModel.m */; };
 		2C215F151A8B48280013FB88 /* CUConModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F141A8B48280013FB88 /* CUConModel.m */; };
 		2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F171A8B483B0013FB88 /* CUComponentModel.m */; };
 		2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EAD1A9D603D00A6EB87 /* CUPageView.m */; };
 		2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EB01A9D605500A6EB87 /* CUConView.m */; };
+		2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AA461ACA198900E627ED /* CULayoutSpec.m */; };
 		2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */; };
 		2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816E1A918EEB00AEE5FF /* CUPageViewModel.m */; };
 		2C8A81731A91924100AEE5FF /* json in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81721A91924100AEE5FF /* json */; };
 		2C8A81751A91EBD100AEE5FF /* conponentJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81741A91EBD100AEE5FF /* conponentJson */; };
 		2C8A81771A91F72500AEE5FF /* pageJson in Resources */ = {isa = PBXBuildFile; fileRef = 2C8A81761A91F72500AEE5FF /* pageJson */; };
+		2C926B2B1AC29C3900B5D061 /* CUTemplateNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C926B2A1AC29C3900B5D061 /* CUTemplateNaviController.m */; };
+		2C926B2F1AC29D2E00B5D061 /* TransitionPushAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C926B2E1AC29D2E00B5D061 /* TransitionPushAnimator.m */; };
+		2C926B321AC29D4300B5D061 /* TransitionPopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C926B311AC29D4300B5D061 /* TransitionPopAnimator.m */; };
 		2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */; };
-		2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */; };
 		2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */; };
 		2CD9C61A1A89EC8800BCD69B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6191A89EC8800BCD69B /* main.m */; };
 		2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C61C1A89EC8800BCD69B /* AppDelegate.m */; };
@@ -29,6 +34,7 @@
 		2CD9C6251A89EC8800BCD69B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9C6241A89EC8800BCD69B /* Images.xcassets */; };
 		2CD9C6281A89EC8800BCD69B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9C6261A89EC8800BCD69B /* LaunchScreen.xib */; };
 		2CD9C6341A89EC8800BCD69B /* CuriosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9C6331A89EC8800BCD69B /* CuriosTests.m */; };
+		2CEFF7951AC4E4B100EA0C95 /* CUEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */; };
 		2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56BC1AB684C00068313C /* EditViewController.m */; };
 		2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56C01AB68A450068313C /* CUNormalLayout.m */; };
 		2CFA56C81AB68EAD0068313C /* CUPageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA56C71AB68EAD0068313C /* CUPageNode.m */; };
@@ -48,6 +54,10 @@
 
 /* Begin PBXFileReference section */
 		1C52CE6BF18A69810E351D07 /* Pods-Curios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Curios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Curios/Pods-Curios.debug.xcconfig"; sourceTree = "<group>"; };
+		2C003C451ABFB25A00F27618 /* CUTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateViewController.h; sourceTree = "<group>"; };
+		2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateViewController.m; sourceTree = "<group>"; };
+		2C003C481ABFB3F400F27618 /* CUSubTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUSubTemplateViewController.h; sourceTree = "<group>"; };
+		2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUSubTemplateViewController.m; sourceTree = "<group>"; };
 		2C215F0D1A8B479D0013FB88 /* CUBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUBaseModel.h; sourceTree = "<group>"; };
 		2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUBaseModel.m; sourceTree = "<group>"; };
 		2C215F101A8B480A0013FB88 /* CUPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageModel.h; sourceTree = "<group>"; };
@@ -61,6 +71,8 @@
 		2C217EAF1A9D605500A6EB87 /* CUConView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConView.h; sourceTree = "<group>"; };
 		2C217EB01A9D605500A6EB87 /* CUConView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConView.m; sourceTree = "<group>"; };
 		2C217EB31A9D60EA00A6EB87 /* ReactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactView.h; sourceTree = "<group>"; };
+		2C80AA451ACA198900E627ED /* CULayoutSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CULayoutSpec.h; sourceTree = "<group>"; };
+		2C80AA461ACA198900E627ED /* CULayoutSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CULayoutSpec.m; sourceTree = "<group>"; };
 		2C8A816A1A918ED100AEE5FF /* CUConViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConViewModel.h; sourceTree = "<group>"; };
 		2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUConViewModel.m; sourceTree = "<group>"; };
 		2C8A816D1A918EEB00AEE5FF /* CUPageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageViewModel.h; sourceTree = "<group>"; };
@@ -68,11 +80,15 @@
 		2C8A81721A91924100AEE5FF /* json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json; sourceTree = "<group>"; };
 		2C8A81741A91EBD100AEE5FF /* conponentJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conponentJson; sourceTree = "<group>"; };
 		2C8A81761A91F72500AEE5FF /* pageJson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pageJson; sourceTree = "<group>"; };
+		2C926B291AC29C3900B5D061 /* CUTemplateNaviController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateNaviController.h; sourceTree = "<group>"; };
+		2C926B2A1AC29C3900B5D061 /* CUTemplateNaviController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateNaviController.m; sourceTree = "<group>"; };
+		2C926B2D1AC29D2E00B5D061 /* TransitionPushAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionPushAnimator.h; sourceTree = "<group>"; };
+		2C926B2E1AC29D2E00B5D061 /* TransitionPushAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionPushAnimator.m; sourceTree = "<group>"; };
+		2C926B301AC29D4300B5D061 /* TransitionPopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionPopAnimator.h; sourceTree = "<group>"; };
+		2C926B311AC29D4300B5D061 /* TransitionPopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionPopAnimator.m; sourceTree = "<group>"; };
 		2C93CE3C1AB96C8B00AB3824 /* CUTransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTransitionLayout.h; sourceTree = "<group>"; };
 		2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTransitionLayout.m; sourceTree = "<group>"; };
-		2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateCollectionViewController.h; sourceTree = "<group>"; };
-		2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateCollectionViewController.m; sourceTree = "<group>"; };
-		2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Curios-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CCA933D1AC2BFBB00B38B14 /* CUResponsegestureProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUResponsegestureProtocol.h; sourceTree = "<group>"; };
 		2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTemplateLayout.h; sourceTree = "<group>"; };
 		2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateLayout.m; sourceTree = "<group>"; };
 		2CD9C6141A89EC8800BCD69B /* Curios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +104,9 @@
 		2CD9C62D1A89EC8800BCD69B /* CuriosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuriosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD9C6321A89EC8800BCD69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CD9C6331A89EC8800BCD69B /* CuriosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CuriosTests.m; sourceTree = "<group>"; };
+		2CEFF7931AC4E4B100EA0C95 /* CUEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUEditCell.h; sourceTree = "<group>"; };
+		2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUEditCell.m; sourceTree = "<group>"; };
+		2CEFF7961AC4F0DD00EA0C95 /* CUCollectionViewLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUCollectionViewLayoutDelegate.h; sourceTree = "<group>"; };
 		2CFA56BB1AB684C00068313C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		2CFA56BC1AB684C00068313C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		2CFA56BF1AB68A450068313C /* CUNormalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUNormalLayout.h; sourceTree = "<group>"; };
@@ -148,8 +167,19 @@
 			isa = PBXGroup;
 			children = (
 				2C217EB31A9D60EA00A6EB87 /* ReactView.h */,
+				2CCA933D1AC2BFBB00B38B14 /* CUResponsegestureProtocol.h */,
+				2CEFF7961AC4F0DD00EA0C95 /* CUCollectionViewLayoutDelegate.h */,
 			);
 			name = Protocol;
+			sourceTree = "<group>";
+		};
+		2C80AA441ACA195A00E627ED /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2C80AA451ACA198900E627ED /* CULayoutSpec.h */,
+				2C80AA461ACA198900E627ED /* CULayoutSpec.m */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		2C8A81651A918E0700AEE5FF /* ViewModel */ = {
@@ -170,8 +200,21 @@
 				2C217EAD1A9D603D00A6EB87 /* CUPageView.m */,
 				2C217EAF1A9D605500A6EB87 /* CUConView.h */,
 				2C217EB01A9D605500A6EB87 /* CUConView.m */,
+				2CEFF7931AC4E4B100EA0C95 /* CUEditCell.h */,
+				2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		2C926B2C1AC29C3F00B5D061 /* customTransition */ = {
+			isa = PBXGroup;
+			children = (
+				2C926B2D1AC29D2E00B5D061 /* TransitionPushAnimator.h */,
+				2C926B2E1AC29D2E00B5D061 /* TransitionPushAnimator.m */,
+				2C926B301AC29D4300B5D061 /* TransitionPopAnimator.h */,
+				2C926B311AC29D4300B5D061 /* TransitionPopAnimator.m */,
+			);
+			name = customTransition;
 			sourceTree = "<group>";
 		};
 		2CD9C60B1A89EC8800BCD69B = {
@@ -197,7 +240,9 @@
 		2CD9C6161A89EC8800BCD69B /* Curios */ = {
 			isa = PBXGroup;
 			children = (
+				2C80AA441ACA195A00E627ED /* Util */,
 				2CFA56CB1AB692B60068313C /* bigMax.jpeg */,
+				2C926B2C1AC29C3F00B5D061 /* customTransition */,
 				2CFA56C21AB68AA30068313C /* Node */,
 				2CFA56BE1AB68A240068313C /* Layout */,
 				2C217EB21A9D60B800A6EB87 /* Protocol */,
@@ -210,8 +255,12 @@
 				2CD9C61F1A89EC8800BCD69B /* ViewController.m */,
 				2CFA56BB1AB684C00068313C /* EditViewController.h */,
 				2CFA56BC1AB684C00068313C /* EditViewController.m */,
-				2CD7E8EF1ABBFB2F00C7FC51 /* TemplateCollectionViewController.h */,
-				2CD7E8F01ABBFB2F00C7FC51 /* TemplateCollectionViewController.m */,
+				2C926B291AC29C3900B5D061 /* CUTemplateNaviController.h */,
+				2C926B2A1AC29C3900B5D061 /* CUTemplateNaviController.m */,
+				2C003C451ABFB25A00F27618 /* CUTemplateViewController.h */,
+				2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */,
+				2C003C481ABFB3F400F27618 /* CUSubTemplateViewController.h */,
+				2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */,
 				2CD9C6211A89EC8800BCD69B /* Main.storyboard */,
 				2CD9C6241A89EC8800BCD69B /* Images.xcassets */,
 				2CD9C6261A89EC8800BCD69B /* LaunchScreen.xib */,
@@ -260,7 +309,6 @@
 				2C93CE3D1AB96C8B00AB3824 /* CUTransitionLayout.m */,
 				2CD7E9231ABC0AEF00C7FC51 /* CUTemplateLayout.h */,
 				2CD7E9241ABC0AEF00C7FC51 /* CUTemplateLayout.m */,
-				2CD7E9201ABC05CA00C7FC51 /* Curios-Bridging-Header.h */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -424,11 +472,14 @@
 				2C93CE3E1AB96C8B00AB3824 /* CUTransitionLayout.m in Sources */,
 				2CFA56C81AB68EAD0068313C /* CUPageNode.m in Sources */,
 				2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */,
+				2C926B2F1AC29D2E00B5D061 /* TransitionPushAnimator.m in Sources */,
 				2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */,
 				2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */,
+				2C926B2B1AC29C3900B5D061 /* CUTemplateNaviController.m in Sources */,
+				2CEFF7951AC4E4B100EA0C95 /* CUEditCell.m in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
 				2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */,
-				2CD7E8F11ABBFB2F00C7FC51 /* TemplateCollectionViewController.m in Sources */,
+				2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */,
 				2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */,
 				2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */,
 				2C215F181A8B483B0013FB88 /* CUComponentModel.m in Sources */,
@@ -436,9 +487,12 @@
 				2CFA56CF1AB6CFEB0068313C /* CUSmallLayout.m in Sources */,
 				2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */,
 				2CD9C61A1A89EC8800BCD69B /* main.m in Sources */,
+				2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */,
 				2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */,
 				2CFA56C11AB68A450068313C /* CUNormalLayout.m in Sources */,
 				2C215F151A8B48280013FB88 /* CUConModel.m in Sources */,
+				2C003C4A1ABFB3F400F27618 /* CUSubTemplateViewController.m in Sources */,
+				2C926B321AC29D4300B5D061 /* TransitionPopAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

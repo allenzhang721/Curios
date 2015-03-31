@@ -10,6 +10,4 @@
 
 @interface CUTemplateLayout : UICollectionViewFlowLayout
 
-- (instancetype)initWithBoundsSize:(CGSize)size;
-
 @end

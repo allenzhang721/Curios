@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUCollectionViewLayoutDelegate.h"
+#import "CUResponsegestureProtocol.h"
 
-@interface CUSmallLayout : UICollectionViewFlowLayout
+@interface CUSmallLayout : UICollectionViewFlowLayout<CUResponsegestureProtocol>
 
+@property (nonatomic, weak)id<CUCollectionViewLayoutDelegate> delegate;
+
+- (void)responseToPointMoveInIfNeed:(BOOL)moveIn Point:(CGPoint)pointInBounds;
+- (void)responsetoPointMoveEnd;
 @end

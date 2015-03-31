@@ -9,19 +9,16 @@
 #import "CUTransitionLayout.h"
 #import "CUNormalLayout.h"
 #import "CUSmallLayout.h"
-
-static CGFloat const _goldenRatio = 0.618;
-static CGFloat const _minTopGap = 20;
-static CGFloat const _itemSpacing = 20;
-static CGFloat const _pannelOffset = 44;
-static CGFloat const _aspectRatio = 320.0 / 504.0;  // width / height
-static CGFloat const _largeLeadingGap = 30;
+#import "CULayoutSpec.h"
 
 @implementation CUTransitionLayout {
-
-
-CGSize _collectionViewSize;
-CGFloat _minScale;
+  
+  CGSize _collectionViewSize;
+  CGFloat _minScale;
+  CGFloat _smallHeight;
+  CGFloat _largeheight;
+  CGFloat _smallWidth;
+  CGFloat _largeWidth;
 }
 
 - (instancetype)initWithCurrentLayout:(UICollectionViewLayout *)currentLayout nextLayout:(UICollectionViewLayout *)newLayout {
@@ -30,15 +27,12 @@ CGFloat _minScale;
   
   if (self) {
     
-    _collectionViewSize = CGSizeMake(320, 548);
-    CGFloat smallHeight = _collectionViewSize.height * (1 - _goldenRatio) - _pannelOffset - _minTopGap * 2;
-    CGFloat smallWidth = smallHeight * _aspectRatio;
-    
-    CGFloat largeWidth = _collectionViewSize.width - 2 * _largeLeadingGap;
-    CGFloat largeHeight = largeWidth / _aspectRatio;
-
-    
-    _minScale = smallHeight / largeHeight;
+    CGSize smallLayoutSize = itemSize(CULayoutStyleSmall);
+    CGSize normalLayoutSize = itemSize(CULayoutStyleNormal);
+    _smallHeight =smallLayoutSize.height;
+    _largeWidth = normalLayoutSize.width;
+    _largeheight = normalLayoutSize.height;
+    _minScale = normalToSmallScale();
     
   }
   return self;
@@ -51,29 +45,36 @@ CGFloat _minScale;
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
   
-//  NSLog(@"ss = %.2f", self.transitionProgress);
   NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
   
-//  for (UICollectionViewLayoutAttributes *attri in attributes) {
-//    NSIndexPath *indexPath = attri.indexPath;
-//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//    UIView *containerView = cell.contentView.subviews[0];
-//    NSLog(@"%.2f", self.transitionProgress);
-//    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
-////      containerView.transform = CGAffineTransformMakeScale(1 - (1 - 0.4) * self.transitionProgress, 1 - (1 - 0.4) * self.transitionProgress);
-//    } else {
-////      containerView.transform = CGAffineTransformIdentity;
-//    }
-//    
-//////    containerView.transform = CGAffineTransformMakeScale(self.transitionProgress * _minScale, self.transitionProgress * _minScale);
-////    CGRect frame = containerView.frame;
-////    frame.origin = CGPointZero;
-////    containerView.frame =frame;
-//    
-//  }
+  for (UICollectionViewLayoutAttributes *attri in attributes) {
+    NSIndexPath *indexPath = attri.indexPath;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    
+    UIView *containerView = cell.contentView.subviews[0];
+    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
+      CGFloat scale = POPTransition(self.transitionProgress, 1, _minScale);
+      CGFloat XTransition = POPTransition(self.transitionProgress, 0, _largeWidth * 1.5 * (1 - scale));
+      CGFloat Ytransition = POPTransition(self.transitionProgress, 0, _largeheight * 1.5 * (1 - scale));
+      containerView.transform = CGAffineTransformMakeScale(scale, scale);
+      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
+    } else {
+      CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
+      CGFloat XTransition = POPTransition(self.transitionProgress, _largeWidth * 1.5 * (1 - scale), 0);
+      CGFloat Ytransition = POPTransition(self.transitionProgress, _largeheight * 1.5 * (1 - scale), 0);
+      containerView.transform = CGAffineTransformMakeScale(scale, scale);
+      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
+      
+    }
+    
+  }
   
   return attributes;
-  
+}
+
+static inline CGFloat POPTransition(CGFloat progress, CGFloat startValue, CGFloat endValue) {
+  return startValue + (progress * (endValue - startValue));
 }
 
 @end
