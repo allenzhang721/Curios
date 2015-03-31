@@ -269,14 +269,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6fD-qb-rZo" firstAttribute="top" secondItem="m66-UO-xse" secondAttribute="top" id="3Ez-Kc-YRX"/>
-                            <constraint firstItem="87E-s9-2eN" firstAttribute="top" secondItem="ath-VP-To4" secondAttribute="bottom" constant="-20" id="407-BP-klW"/>
-                            <constraint firstItem="6fD-qb-rZo" firstAttribute="leading" secondItem="m66-UO-xse" secondAttribute="leading" id="9gB-Oi-9qV"/>
-                            <constraint firstItem="6fD-qb-rZo" firstAttribute="bottom" secondItem="E7V-5u-NPs" secondAttribute="top" id="Myc-yq-BQb"/>
-                            <constraint firstItem="87E-s9-2eN" firstAttribute="leading" secondItem="m66-UO-xse" secondAttribute="leadingMargin" constant="-16" id="qd4-sB-J0G"/>
-                            <constraint firstItem="87E-s9-2eN" firstAttribute="top" secondItem="6fD-qb-rZo" secondAttribute="top" id="qsJ-cR-cjx"/>
-                            <constraint firstItem="87E-s9-2eN" firstAttribute="leading" secondItem="6fD-qb-rZo" secondAttribute="leading" id="u18-f6-JgB"/>
-                            <constraint firstAttribute="trailing" secondItem="6fD-qb-rZo" secondAttribute="trailing" id="xqc-X1-e9o"/>
+                            <constraint firstItem="6fD-qb-rZo" firstAttribute="leading" secondItem="87E-s9-2eN" secondAttribute="leading" id="FIJ-cB-MlS"/>
+                            <constraint firstAttribute="trailing" secondItem="6fD-qb-rZo" secondAttribute="trailing" id="MIg-dI-cKf"/>
+                            <constraint firstItem="6fD-qb-rZo" firstAttribute="top" secondItem="87E-s9-2eN" secondAttribute="top" id="TuK-DF-Wm3"/>
+                            <constraint firstItem="6fD-qb-rZo" firstAttribute="bottom" secondItem="E7V-5u-NPs" secondAttribute="top" id="WhE-US-gj5"/>
+                            <constraint firstItem="6fD-qb-rZo" firstAttribute="leading" secondItem="m66-UO-xse" secondAttribute="leading" id="b3h-si-7B7"/>
+                            <constraint firstItem="6fD-qb-rZo" firstAttribute="top" secondItem="m66-UO-xse" secondAttribute="top" id="vqd-gG-Yxt"/>
                         </constraints>
                     </view>
                     <connections>
