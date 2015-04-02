@@ -51,23 +51,35 @@
     NSIndexPath *indexPath = attri.indexPath;
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     
-    
-    UIView *containerView = cell.contentView.subviews[0];
-    if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
-      CGFloat scale = POPTransition(self.transitionProgress, 1, _minScale);
-      CGFloat XTransition = POPTransition(self.transitionProgress, 0, _largeWidth * 1.5 * (1 - scale));
-      CGFloat Ytransition = POPTransition(self.transitionProgress, 0, _largeheight * 1.5 * (1 - scale));
-      containerView.transform = CGAffineTransformMakeScale(scale, scale);
-      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
-    } else {
-      CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
-      CGFloat XTransition = POPTransition(self.transitionProgress, _largeWidth * 1.5 * (1 - scale), 0);
-      CGFloat Ytransition = POPTransition(self.transitionProgress, _largeheight * 1.5 * (1 - scale), 0);
-      containerView.transform = CGAffineTransformMakeScale(scale, scale);
-      containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
-      
+    if (cell.contentView.subviews.count > 0) {
+      UIView *containerView = cell.contentView.subviews[0];
+      if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
+        CGFloat scale = POPTransition(self.transitionProgress, 1, _minScale);
+        CGFloat frameX = POPTransition(self.transitionProgress, 260, 83);
+        CGFloat frameY = POPTransition(self.transitionProgress, 409, 132);
+        CGRect frame = CGRectMake(0, 0, frameX, frameY);
+        containerView.frame = frame;
+//        containerView.layer.sublayerTransform = CATransform3DMakeScale(scale, scale, 1);
+        
+//        for (CALayer *sublayer in containerView.layer.sublayers) {
+//          CGFloat XTransition = POPTransition(self.transitionProgress, 0, _largeWidth * 1.5 * (1 - scale));
+//          CGFloat Ytransition = POPTransition(self.transitionProgress, 0, _largeheight * 1.5 * (1 - scale));
+//          sublayer.transform = CATransform3DMakeScale(scale, scale, 1);
+//          sublayer.transform = CATransform3DMakeScale(scale, scale, 1);
+//        }
+      } else {
+        CGFloat frameX = POPTransition(self.transitionProgress, 83, 260);
+        CGFloat frameY = POPTransition(self.transitionProgress, 132, 409);
+        CGRect frame = CGRectMake(0, 0, frameX, frameY);
+        containerView.frame = frame;
+////        CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
+////        CGFloat XTransition = POPTransition(self.transitionProgress, _largeWidth * 1.5 * (1 - scale), 0);
+////        CGFloat Ytransition = POPTransition(self.transitionProgress, _largeheight * 1.5 * (1 - scale), 0);
+////        containerView.transform = CGAffineTransformMakeScale(scale, scale);
+////        containerView.transform = CGAffineTransformTranslate(containerView.transform, -XTransition, -Ytransition);
+//        
+      }
     }
-    
   }
   
   return attributes;

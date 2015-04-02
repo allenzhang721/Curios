@@ -10,6 +10,7 @@
 		2BCDC28BBCDD09EAE7F5B486 /* libPods-Curios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FCD396CE8829FEEFDB45EB /* libPods-Curios.a */; };
 		2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */; };
 		2C003C4A1ABFB3F400F27618 /* CUSubTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */; };
+		2C023F491ACD2FBB00179106 /* CUEditContainerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C023F481ACD2FBB00179106 /* CUEditContainerLayer.m */; };
 		2C215F0F1A8B479D0013FB88 /* CUBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */; };
 		2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F111A8B480A0013FB88 /* CUPageModel.m */; };
 		2C215F151A8B48280013FB88 /* CUConModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C215F141A8B48280013FB88 /* CUConModel.m */; };
@@ -58,6 +59,8 @@
 		2C003C461ABFB25A00F27618 /* CUTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTemplateViewController.m; sourceTree = "<group>"; };
 		2C003C481ABFB3F400F27618 /* CUSubTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUSubTemplateViewController.h; sourceTree = "<group>"; };
 		2C003C491ABFB3F400F27618 /* CUSubTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUSubTemplateViewController.m; sourceTree = "<group>"; };
+		2C023F471ACD2FBB00179106 /* CUEditContainerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUEditContainerLayer.h; sourceTree = "<group>"; };
+		2C023F481ACD2FBB00179106 /* CUEditContainerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUEditContainerLayer.m; sourceTree = "<group>"; };
 		2C215F0D1A8B479D0013FB88 /* CUBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUBaseModel.h; sourceTree = "<group>"; };
 		2C215F0E1A8B479D0013FB88 /* CUBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUBaseModel.m; sourceTree = "<group>"; };
 		2C215F101A8B480A0013FB88 /* CUPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPageModel.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				2C217EB01A9D605500A6EB87 /* CUConView.m */,
 				2CEFF7931AC4E4B100EA0C95 /* CUEditCell.h */,
 				2CEFF7941AC4E4B100EA0C95 /* CUEditCell.m */,
+				2C023F471ACD2FBB00179106 /* CUEditContainerLayer.h */,
+				2C023F481ACD2FBB00179106 /* CUEditContainerLayer.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				2CD9C61D1A89EC8800BCD69B /* AppDelegate.m in Sources */,
 				2CFA56CF1AB6CFEB0068313C /* CUSmallLayout.m in Sources */,
 				2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */,
+				2C023F491ACD2FBB00179106 /* CUEditContainerLayer.m in Sources */,
 				2CD9C61A1A89EC8800BCD69B /* main.m in Sources */,
 				2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */,
 				2CD7E9251ABC0AEF00C7FC51 /* CUTemplateLayout.m in Sources */,

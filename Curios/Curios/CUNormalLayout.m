@@ -41,8 +41,14 @@
     
     NSIndexPath *indexPath = attribute.indexPath;
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = cell.contentView.subviews[0];
-    view.transform = CGAffineTransformIdentity;
+    if (cell.contentView.subviews.count > 0) {
+//      UIView *view = cell.contentView.subviews[0];
+//      if (view) {
+//        view.transform = CGAffineTransformIdentity;
+//      }
+    }
+    
+    
   }
   
   return attributes;

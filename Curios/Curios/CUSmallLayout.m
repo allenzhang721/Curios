@@ -73,16 +73,20 @@ typedef NS_ENUM(NSUInteger, CUSmallLayoutScrollDirection) {
     
     NSIndexPath *indexPath = attribute.indexPath;
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = cell.contentView.subviews[0];
-    view.transform = CGAffineTransformMakeScale(_scale, _scale);
-    view.transform = CGAffineTransformTranslate(view.transform, -_largeWidth * 1.5 * (1 - _scale) - 5, - _largeHeight * 1.5 * (1 - _scale));
     
-    if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
-      if (_placeholderIndexPath == attribute.indexPath) {
-        
-        attribute.alpha = 0;
+    if (cell.contentView.subviews.count > 0) {
+//      UIView *view = cell.contentView.subviews[0];
+//      view.transform = CGAffineTransformMakeScale(_scale, _scale);
+//      view.transform = CGAffineTransformTranslate(view.transform, -_largeWidth * 1.5 * (1 - _scale) - 5, - _largeHeight * 1.5 * (1 - _scale));
+      
+      if (attribute.representedElementCategory == UICollectionElementCategoryCell) {
+        if (_placeholderIndexPath == attribute.indexPath) {
+          
+          attribute.alpha = 0;
+        }
       }
     }
+    
   }
   
   return attributes;

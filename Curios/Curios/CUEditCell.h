@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CUPageViewModel;
 
 @interface CUEditCell : UICollectionViewCell
+
+- (void) configCellDisplayWithPage:(CUPageViewModel *)page inQueue:(NSOperationQueue *)queue;
 
 @end

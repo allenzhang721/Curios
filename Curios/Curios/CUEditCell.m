@@ -8,28 +8,151 @@
 
 #import "CUEditCell.h"
 #import "CULayoutSpec.h"
+#import "CUEditContainerLayer.h"
+#import "CULayoutSpec.h"
+#import <AsyncDisplayKit/ASControlNode+Subclasses.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <Masonry.h>
 
-@implementation CUEditCell
+@implementation CUEditCell {
+  
+  NSOperation *_nodeConstructionOperation;
+  ASDisplayNode *_containerNode;
+  CALayer *_containerLayer;
+}
 
 - (void)awakeFromNib {
   [super awakeFromNib];
+  self.contentView.backgroundColor = [UIColor lightGrayColor];
+  
+//  NSOperationQueue *queue = [NSOperationQueue new];
+//  [self configCellDisplayWithPage:nil inQueue:queue];
+}
 
-  CGSize aitemSize = itemSize(CULayoutStyleNormal);
-  UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, aitemSize.width, aitemSize.height)];
-  containerView.backgroundColor = [UIColor purpleColor];
-  [self.contentView addSubview:containerView];
+- (void)prepareForReuse {
+  [super prepareForReuse];
+  if (_nodeConstructionOperation) {
+    [_nodeConstructionOperation cancel];
+  }
+  if (_containerLayer) {
+    [_containerLayer removeFromSuperlayer];
+  }
+  if (_containerNode.view) {
+    [_containerNode.view removeFromSuperview];
+  }
   
-//  [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-//    make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsZero);
-//  }];
+  if (_containerNode) {
+    [_containerNode recursivelySetDisplaySuspended:YES];
+  }
+  _containerLayer = nil;
+  _containerNode = nil;
+}
+
+- (void) configCellDisplayWithPage:(CUPageViewModel *)page inQueue:(NSOperationQueue *)queue {
+  if (_nodeConstructionOperation) {
+    [_nodeConstructionOperation cancel];
+  }
   
-  UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
-  label.text = @"EMiaostein";
-  [containerView addSubview:label];
-//  [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//    make.edges.equalTo(containerView).with.insets(UIEdgeInsetsZero);
-//  }];
+  NSOperation *nodeConstructionOperation = [self p_nodeConstructionOperationWithPage:page];
+  _nodeConstructionOperation = nodeConstructionOperation;
+  [queue addOperation:nodeConstructionOperation];
+}
+
+- (NSOperation *)p_nodeConstructionOperationWithPage:(CUPageViewModel *)page {
+  
+  NSBlockOperation *nodeConstructionOperation = [NSBlockOperation new];
+  __weak typeof(self) weakSelf = self;
+  __weak typeof(_nodeConstructionOperation) weakOperation = _nodeConstructionOperation;
+  [nodeConstructionOperation addExecutionBlock:^{
+    
+    if (weakOperation.cancelled) {
+      return;
+    }
+    
+    typeof(weakSelf) strongSelf = weakSelf;
+    if (strongSelf) {
+      
+      // containerNode
+      ASDisplayNode *containerNode = [[ASDisplayNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
+      containerNode.layerBacked = NO;
+      containerNode.shouldRasterizeDescendants = YES;
+      containerNode.backgroundColor = [UIColor lightGrayColor];
+      
+      for (int i = 0; i < 25; i++) {
+        
+        containerNode.frame = CGRectMake(0, 0, CGRectGetWidth(strongSelf.frame), CGRectGetHeight(strongSelf.frame));
+        
+        CGFloat scale = strongSelf.frame.size.width <= itemSize(CULayoutStyleSmall).width ? normalToSmallScale() : 1.0;
+        
+        // Declare the fonts
+        UIFont *myStringFont1 = [UIFont fontWithName:@"Helvetica-Oblique" size:12.0 * scale];
+        //      [myString addAttribute:NSFontAttributeName value:myStringFont1 range:NSMakeRange(0,42)];
+        
+        NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"Thanksuser user" attributes:@{NSFontAttributeName: myStringFont1,  NSParagraphStyleAttributeName: [NSParagraphStyle defaultParagraphStyle]}];
+        
+        ASTextNode *textNode = [[ASTextNode alloc]init];
+        textNode.layerBacked = YES;
+        
+        textNode.attributedString = string;
+        
+        
+        //      ASTextNode *textNode = [[ASTextNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
+        ASImageNode *imageNode = [[ASImageNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
+        imageNode.layerBacked = YES;
+        imageNode.backgroundColor = [UIColor colorWithRed:arc4random() % 255 / 255.0 green:arc4random() % 255 / 255.0 blue:arc4random() % 255 / 255.0 alpha:1];
+        
+        
+        
+        CGFloat x = arc4random() % 300;
+        CGFloat y = arc4random() % 300;
+        CGFloat width = arc4random() % 200;
+        CGFloat height = arc4random() % 100;
+        
+        imageNode.frame = CGRectMake(x * scale, y * scale, width * scale, height * scale);
+        
+        CGFloat x1 = arc4random() % 50;
+        CGFloat y1 = arc4random() % 100;
+        CGFloat width1 = arc4random() % 200;
+        CGFloat height1 = arc4random() % 100;
+        
+        textNode.frame = CGRectMake(x1 * scale, y1 *scale, width1 * scale, height1 * scale);
+        
+        
+        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
+        [containerNode addSubnode:imageNode];
+        [containerNode addSubnode:textNode];
+      }
+
+      
+      if (weakOperation.cancelled) {
+        return;
+      }
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        typeof(weakOperation) strongOpeation = weakOperation;
+        if (strongOpeation) {
+          if (strongOpeation.cancelled) {
+            return;
+          }
+          if (_nodeConstructionOperation != strongOpeation) {
+            return;
+          }
+          if (containerNode.displaySuspended) {
+            return;
+          }
+        }
+        
+        [strongSelf.contentView addSubview:containerNode.view];
+        [containerNode setNeedsDisplay];
+//        _containerLayer = containerNode.layer;
+        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
+        _containerNode = containerNode;
+        
+      });
+    }
+  }];
+  
+  return nodeConstructionOperation;
 }
 
 @end

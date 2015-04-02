@@ -56,6 +56,7 @@ typedef void(^animationDidCompleted)();
 @property (weak, nonatomic) IBOutlet UIToolbar *EditToolbar;
 
 @property (nonatomic) CGFloat totalProgress;
+@property (nonatomic, strong) NSOperationQueue *queue;
 @end
 
 @implementation EditViewController
@@ -84,6 +85,7 @@ typedef void(^animationDidCompleted)();
   [self setupTemplateController];
   
   _targetY = CGRectGetHeight(self.view.bounds);
+  _queue = [[NSOperationQueue alloc] init];
   
   transitonFishing  = YES;
   animationing = NO;
@@ -248,6 +250,7 @@ typedef void(^animationDidCompleted)();
         
         [_fakeTemplateView removeFromSuperview];
         _fakeTemplateView = nil;
+        
       }
         break;
       default:
@@ -304,6 +307,7 @@ typedef void(^animationDidCompleted)();
         _shouldResponseLongPress = NO;
       }
 //      NSLog(@"animation finished");
+//      [_editCollectionView reloadData];
     }
   };
 }
@@ -375,6 +379,7 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
   CUEditCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
   cell.clipsToBounds = YES;
   
+  [cell configCellDisplayWithPage:nil inQueue:_queue];
 //  cell.textLabel.text = _dataArray[indexPath.row];
   
   return cell;
