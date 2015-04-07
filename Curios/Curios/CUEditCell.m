@@ -75,7 +75,7 @@
       // containerNode
       ASDisplayNode *containerNode = [[ASDisplayNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
       containerNode.layerBacked = NO;
-      containerNode.shouldRasterizeDescendants = YES;
+//      containerNode.shouldRasterizeDescendants = YES;
       containerNode.backgroundColor = [UIColor lightGrayColor];
       
       for (int i = 0; i < 25; i++) {
@@ -88,12 +88,15 @@
         UIFont *myStringFont1 = [UIFont fontWithName:@"Helvetica-Oblique" size:12.0 * scale];
         //      [myString addAttribute:NSFontAttributeName value:myStringFont1 range:NSMakeRange(0,42)];
         
-        NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"Thanksuser user" attributes:@{NSFontAttributeName: myStringFont1,  NSParagraphStyleAttributeName: [NSParagraphStyle defaultParagraphStyle]}];
+        NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"Thanksuser user 我好想吃东西啊" attributes:@{NSFontAttributeName: myStringFont1,  NSParagraphStyleAttributeName: [NSParagraphStyle defaultParagraphStyle]}];
         
         ASTextNode *textNode = [[ASTextNode alloc]init];
         textNode.layerBacked = YES;
         
         textNode.attributedString = string;
+        textNode.transform = CATransform3DMakeRotation(45, 0, 0, 1);
+        textNode.backgroundColor = [UIColor whiteColor];
+        
         
         
         //      ASTextNode *textNode = [[ASTextNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
@@ -110,13 +113,12 @@
         
         imageNode.frame = CGRectMake(x * scale, y * scale, width * scale, height * scale);
         
-        CGFloat x1 = arc4random() % 50;
-        CGFloat y1 = arc4random() % 100;
+        CGFloat x1 = arc4random() % 300;
+        CGFloat y1 = arc4random() % 300;
         CGFloat width1 = arc4random() % 200;
         CGFloat height1 = arc4random() % 100;
         
         textNode.frame = CGRectMake(x1 * scale, y1 *scale, width1 * scale, height1 * scale);
-        
         
         NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
         [containerNode addSubnode:imageNode];
@@ -147,6 +149,7 @@
 //        _containerLayer = containerNode.layer;
         NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
         _containerNode = containerNode;
+//        containerNode.shouldRasterizeDescendants = YES;
         
       });
     }
