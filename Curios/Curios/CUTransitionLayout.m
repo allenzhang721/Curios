@@ -55,10 +55,12 @@
       UIView *containerView = cell.contentView.subviews[0];
       if ([self.currentLayout isKindOfClass:[CUNormalLayout class]]) {
         CGFloat scale = POPTransition(self.transitionProgress, 1, _minScale);
-        CGFloat frameX = POPTransition(self.transitionProgress, 260, 83);
-        CGFloat frameY = POPTransition(self.transitionProgress, 409, 132);
-        CGRect frame = CGRectMake(0, 0, frameX, frameY);
-        containerView.frame = frame;
+//        CGFloat frameX = POPTransition(self.transitionProgress, 260, 83);
+//        CGFloat frameY = POPTransition(self.transitionProgress, 409, 132);
+//        CGRect frame = CGRectMake(0, 0, frameX, frameY);
+//        containerView.frame = frame;
+        containerView.transform = CGAffineTransformMakeScale(scale, scale);
+        containerView.center = containerView.superview.center;
 //        containerView.layer.sublayerTransform = CATransform3DMakeScale(scale, scale, 1);
         
 //        for (CALayer *sublayer in containerView.layer.sublayers) {
@@ -68,10 +70,12 @@
 //          sublayer.transform = CATransform3DMakeScale(scale, scale, 1);
 //        }
       } else {
-        CGFloat frameX = POPTransition(self.transitionProgress, 83, 260);
-        CGFloat frameY = POPTransition(self.transitionProgress, 132, 409);
-        CGRect frame = CGRectMake(0, 0, frameX, frameY);
-        containerView.frame = frame;
+        CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
+        NSLog(@"%.2f", scale);
+        containerView.transform = CGAffineTransformMakeScale(scale, scale);
+        containerView.center = containerView.superview.center;
+//        CGRect frame = CGRectMake(0, 0, frameX, frameY);
+//        containerView.frame = frame;
 ////        CGFloat scale = POPTransition(self.transitionProgress, _minScale, 1);
 ////        CGFloat XTransition = POPTransition(self.transitionProgress, _largeWidth * 1.5 * (1 - scale), 0);
 ////        CGFloat Ytransition = POPTransition(self.transitionProgress, _largeheight * 1.5 * (1 - scale), 0);

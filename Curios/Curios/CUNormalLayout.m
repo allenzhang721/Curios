@@ -42,10 +42,11 @@
     NSIndexPath *indexPath = attribute.indexPath;
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell.contentView.subviews.count > 0) {
-//      UIView *view = cell.contentView.subviews[0];
-//      if (view) {
-//        view.transform = CGAffineTransformIdentity;
-//      }
+      UIView *view = cell.contentView.subviews[0];
+      if (view) {
+        view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        view.center = view.superview.center;
+      }
     }
     
     

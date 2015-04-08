@@ -19,11 +19,14 @@
   NSOperation *_nodeConstructionOperation;
   ASDisplayNode *_containerNode;
   CALayer *_containerLayer;
+  CGSize normalSize;
 }
 
 - (void)awakeFromNib {
   [super awakeFromNib];
   self.contentView.backgroundColor = [UIColor lightGrayColor];
+  
+  normalSize = itemSize(CULayoutStyleNormal);
   
 //  NSOperationQueue *queue = [NSOperationQueue new];
 //  [self configCellDisplayWithPage:nil inQueue:queue];
@@ -76,14 +79,15 @@
       ASDisplayNode *containerNode = [[ASDisplayNode alloc] initWithLayerClass:[CUEditContainerLayer class]];
       containerNode.layerBacked = NO;
 //      containerNode.shouldRasterizeDescendants = YES;
-      containerNode.backgroundColor = [UIColor lightGrayColor];
+      containerNode.backgroundColor = [UIColor yellowColor];
       
       for (int i = 0; i < 25; i++) {
         
-        containerNode.frame = CGRectMake(0, 0, CGRectGetWidth(strongSelf.frame), CGRectGetHeight(strongSelf.frame));
         
-        CGFloat scale = strongSelf.frame.size.width <= itemSize(CULayoutStyleSmall).width ? normalToSmallScale() : 1.0;
         
+//        CGFloat scale = strongSelf.frame.size.width <= itemSize(CULayoutStyleSmall).width ? normalToSmallScale() : 1.0;
+        CGFloat scale = 1.0;
+        containerNode.frame = CGRectMake(0, 0, normalSize.width * scale, normalSize.height * scale);
         // Declare the fonts
         UIFont *myStringFont1 = [UIFont fontWithName:@"Helvetica-Oblique" size:12.0 * scale];
         //      [myString addAttribute:NSFontAttributeName value:myStringFont1 range:NSMakeRange(0,42)];
@@ -120,7 +124,7 @@
         
         textNode.frame = CGRectMake(x1 * scale, y1 *scale, width1 * scale, height1 * scale);
         
-        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
+//        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
         [containerNode addSubnode:imageNode];
         [containerNode addSubnode:textNode];
       }
@@ -147,7 +151,7 @@
         [strongSelf.contentView addSubview:containerNode.view];
         [containerNode setNeedsDisplay];
 //        _containerLayer = containerNode.layer;
-        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
+//        NSLog(@"strongSelf = %@", NSStringFromCGRect(containerNode.frame));
         _containerNode = containerNode;
 //        containerNode.shouldRasterizeDescendants = YES;
         
