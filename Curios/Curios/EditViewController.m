@@ -15,6 +15,7 @@
 #import "CUTemplateViewController.h"
 #import "CUSubTemplateViewController.h"
 #import "CUEditCell.h"
+#import "CUPagesParaser.h"
 #import <Masonry.h>
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <POP/POP.h>
@@ -47,7 +48,6 @@ typedef void(^animationDidCompleted)();
   
   //data
   NSMutableArray *_dataArray;
-  
 }
 
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
@@ -65,13 +65,13 @@ typedef void(^animationDidCompleted)();
   [super viewDidLoad];
   
   _shouldResponseLongPress = NO;
+  _dataArray = [NSMutableArray arrayWithArray:[CUPagesParaser getDemoPageModels]];
 
-  _dataArray = [@[] mutableCopy];
-  for (int i = 0; i < 20; i++) {
-    [_dataArray addObject:[NSString stringWithFormat:@"%@",@(i)]];
-  }
-  
   [self setup];
+}
+
+- (void)setupPages {
+  
 }
 
 
@@ -238,9 +238,7 @@ typedef void(^animationDidCompleted)();
         
       case UIGestureRecognizerStateFailed:
       case UIGestureRecognizerStateEnded: {
-        
-        
-        
+
         if ([_editCollectionView.collectionViewLayout isKindOfClass:[CUSmallLayout class]]) {
           
           if (CGRectContainsPoint(_editCollectionView.frame, location)) {
@@ -380,7 +378,6 @@ static inline CGFloat ChangeProgress(CGFloat Y, CGFloat startValue, CGFloat endV
   cell.clipsToBounds = YES;
   
   [cell configCellDisplayWithPage:nil inQueue:_queue];
-//  cell.textLabel.text = _dataArray[indexPath.row];
   
   return cell;
 }

@@ -18,6 +18,7 @@
 		2C217EAE1A9D603D00A6EB87 /* CUPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EAD1A9D603D00A6EB87 /* CUPageView.m */; };
 		2C217EB11A9D605500A6EB87 /* CUConView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C217EB01A9D605500A6EB87 /* CUConView.m */; };
 		2C3CCD7F1AD370D5007C29EF /* ASEditableTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C3CCD7E1AD370D5007C29EF /* ASEditableTextNode.mm */; };
+		2C62C0D71AD91F6100F9828D /* CUPagesParaser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C62C0D61AD91F6100F9828D /* CUPagesParaser.m */; };
 		2C80AA471ACA198900E627ED /* CULayoutSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AA461ACA198900E627ED /* CULayoutSpec.m */; };
 		2C8A816C1A918ED100AEE5FF /* CUConViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816B1A918ED100AEE5FF /* CUConViewModel.m */; };
 		2C8A816F1A918EEB00AEE5FF /* CUPageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8A816E1A918EEB00AEE5FF /* CUPageViewModel.m */; };
@@ -77,6 +78,8 @@
 		2C217EB31A9D60EA00A6EB87 /* ReactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactView.h; sourceTree = "<group>"; };
 		2C3CCD7D1AD370D5007C29EF /* ASEditableTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASEditableTextNode.h; sourceTree = "<group>"; };
 		2C3CCD7E1AD370D5007C29EF /* ASEditableTextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASEditableTextNode.mm; sourceTree = "<group>"; };
+		2C62C0D51AD91F6100F9828D /* CUPagesParaser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPagesParaser.h; sourceTree = "<group>"; };
+		2C62C0D61AD91F6100F9828D /* CUPagesParaser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPagesParaser.m; sourceTree = "<group>"; };
 		2C80AA451ACA198900E627ED /* CULayoutSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CULayoutSpec.h; sourceTree = "<group>"; };
 		2C80AA461ACA198900E627ED /* CULayoutSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CULayoutSpec.m; sourceTree = "<group>"; };
 		2C8A816A1A918ED100AEE5FF /* CUConViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUConViewModel.h; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 			children = (
 				2C80AA451ACA198900E627ED /* CULayoutSpec.h */,
 				2C80AA461ACA198900E627ED /* CULayoutSpec.m */,
+				2C62C0D51AD91F6100F9828D /* CUPagesParaser.h */,
+				2C62C0D61AD91F6100F9828D /* CUPagesParaser.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				2CEFF7951AC4E4B100EA0C95 /* CUEditCell.m in Sources */,
 				2C3CCD7F1AD370D5007C29EF /* ASEditableTextNode.mm in Sources */,
 				2CD9C6201A89EC8800BCD69B /* ViewController.m in Sources */,
+				2C62C0D71AD91F6100F9828D /* CUPagesParaser.m in Sources */,
 				2CFA56BD1AB684C00068313C /* EditViewController.m in Sources */,
 				2C003C471ABFB25A00F27618 /* CUTemplateViewController.m in Sources */,
 				2C215F121A8B480A0013FB88 /* CUPageModel.m in Sources */,
